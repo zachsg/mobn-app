@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "356701046245",
+    "project_id": "mobn-inc",
+    "storage_bucket": "mobn-inc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:356701046245:android:76ebf1a4b53572a5d65b0c",
+        "android_client_info": {
+          "package_name": "io.mobn.mobn"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXWXie4gktgpqH1wjRzH7idIZng8Ss94k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
