@@ -49,3 +49,13 @@ Do:
 4. `flutter pub get`
 
 Run app :).
+
+## Create / Modify splash page
+To create or updated splash page: `dart run flutter_native_splash:create` 
+
+You can also specify path to YAML: `dart run flutter_native_splash:create --path=path/to/my/file.yaml`
+
+## Generate app icon
+To update app icon run: `flutter pub run flutter_launcher_icons`
+
+You can also specify path to YAML: `flutter pub run flutter_launcher_icons -f <your config file name here>`

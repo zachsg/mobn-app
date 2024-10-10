@@ -1,73 +1,47 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-final GlobalKey<FormState> _authFormKey = GlobalKey<FormState>();
+import '../../helpers/constants.dart';
+import '../home/home_view.dart';
 
-class AuthView extends StatefulWidget {
+class AuthView extends StatelessWidget {
   const AuthView({super.key});
 
-  @override
-  State<AuthView> createState() => _AuthViewState();
-}
-
-class _AuthViewState extends State<AuthView> {
-  var email = "";
+  static const routeName = '/auth';
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Mobn'),
-      ),
-      body: Form(
-        key: _authFormKey,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            TextFormField(
-              decoration: const InputDecoration(
-                hintText: 'Enter your email',
+    return SignInScreen(
+      providers: [EmailAuthProvider()],
+      actions: [
+        AuthStateChangeAction<SignedIn>((context, state) {
+          // context.goNamed(HomeView.routeName);
+        }),
+      ],
+      showPasswordVisibilityToggle: true,
+      headerBuilder: (context, constraints, shrinkOffset) {
+        return Container(
+          color: primaryColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/mobn_logo.png',
+                width: 128,
               ),
-              validator: (String? value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter some text';
-                }
-                return null;
-              },
-              onChanged: (value) {
-                email = value;
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  // Validate returns true if the form is valid, or false otherwise.
-                  if (_authFormKey.currentState!.validate()) {
-                    var acs = ActionCodeSettings(
-                      url: 'https://mobn-inc.firebaseapp.com/',
-                      handleCodeInApp: true,
-                      iOSBundleId: 'io.mobn.mobn',
-                      androidPackageName: 'io.mobn.mobn',
-                      androidInstallApp: true,
-                      androidMinimumVersion: '12',
-                    );
-
-                    FirebaseAuth.instance
-                        .sendSignInLinkToEmail(
-                            email: email, actionCodeSettings: acs)
-                        .catchError((onError) =>
-                            print('Error sending email verification $onError'))
-                        .then((value) =>
-                            print('Successfully sent email verification'));
-                  }
-                },
-                child: const Text('Sign In'),
+              Text(
+                'Mobn',
+                style: Theme.of(context).textTheme.displayLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
