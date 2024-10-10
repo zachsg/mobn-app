@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../auth/auth_view.dart';
-import '../home/home_view.dart';
+import '../bottom_nav/bottom_nav_view.dart';
 
 class SplashView extends StatelessWidget {
   const SplashView({super.key});
@@ -18,7 +18,7 @@ class SplashView extends StatelessWidget {
           return const AuthView();
         }
 
-        return const HomeView();
+        return const BottomNavView();
       },
     );
   }

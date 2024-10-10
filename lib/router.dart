@@ -1,7 +1,9 @@
 import 'package:go_router/go_router.dart';
 
 import 'features/auth/auth_view.dart';
-import 'features/home/home_view.dart';
+import 'features/bottom_nav/bottom_nav_view.dart';
+import 'features/profile/profile_view.dart';
+import 'features/settings/settings_view.dart';
 import 'features/splash/splash_view.dart';
 
 final router = GoRouter(
@@ -18,9 +20,21 @@ final router = GoRouter(
       builder: (context, state) => const AuthView(),
     ),
     GoRoute(
-      path: HomeView.routeName,
-      name: HomeView.routeName,
-      builder: (context, state) => const HomeView(),
+      path: BottomNavView.routeName,
+      name: BottomNavView.routeName,
+      builder: (context, state) => const BottomNavView(),
+      routes: [
+        GoRoute(
+          path: ProfileView.routeName,
+          name: ProfileView.routeName,
+          builder: (context, state) => const ProfileView(),
+        ),
+        GoRoute(
+          path: SettingsView.routeName,
+          name: SettingsView.routeName,
+          builder: (context, state) => const SettingsView(),
+        )
+      ],
     ),
   ],
 );
