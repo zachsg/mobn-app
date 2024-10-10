@@ -1,10 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart' hide EmailAuthProvider;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../helpers/constants.dart';
-import '../home/home_view.dart';
 
 class AuthView extends StatelessWidget {
   const AuthView({super.key});
