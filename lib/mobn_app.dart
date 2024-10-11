@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'helpers/constants.dart';
-import 'helpers/labels.dart';
 import 'router.dart';
 
 class MobnApp extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../helpers/labels.dart';
+import '../../helpers/constants.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({super.key});

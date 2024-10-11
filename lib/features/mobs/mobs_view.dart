@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../helpers/labels.dart';
+import '../../helpers/constants.dart';
 
 class MobsView extends StatelessWidget {
   const MobsView({super.key});

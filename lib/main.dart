@@ -48,14 +48,5 @@ void main() async {
 
   final SharedPreferences preferences = await SharedPreferences.getInstance();
 
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MobnApp();
-  }
+  runApp(const MobnApp());
 }

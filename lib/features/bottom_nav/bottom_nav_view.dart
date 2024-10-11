@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../helpers/labels.dart';
+import '../../helpers/constants.dart';
 import '../mobs/mobs_view.dart';
 import '../profile/profile_view.dart';
 import '../settings/settings_view.dart';
@@ -55,6 +55,7 @@ class _BottomNavViewState extends State<BottomNavView> {
             label: settingsLabel,
           ),
         ],
+        labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       ),
     );
   }
