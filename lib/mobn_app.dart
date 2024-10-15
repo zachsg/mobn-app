@@ -19,7 +19,7 @@ class MobnApp extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange,
+          seedColor: primaryColor,
           brightness: Brightness.dark,
         ),
       ),

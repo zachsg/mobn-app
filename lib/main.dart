@@ -2,6 +2,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
@@ -48,5 +49,5 @@ void main() async {
 
   final SharedPreferences preferences = await SharedPreferences.getInstance();
 
-  runApp(const MobnApp());
+  runApp(ProviderScope(child: const MobnApp()));
 }

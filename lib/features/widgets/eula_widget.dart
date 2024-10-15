@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class EulaWidget extends StatelessWidget {
+import '../profile/profile.dart';
+
+class EulaWidget extends ConsumerWidget {
   const EulaWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Mobn Terms'),
@@ -69,12 +72,12 @@ class EulaWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 FilledButton(
-                  onPressed: () {
-                    // TODO: Accept terms
-                  },
-                  child: const Padding(
+                  onPressed: ref.read(profileProvider.notifier).acceptTerms,
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24.0),
-                    child: Text('Agree'),
+                    child: ref.watch(profileProvider).loading
+                        ? CircularProgressIndicator.adaptive()
+                        : Text('Agree'),
                   ),
                 ),
               ],

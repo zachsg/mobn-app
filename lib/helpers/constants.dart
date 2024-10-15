@@ -6,13 +6,25 @@ const primaryColor = Color.fromRGBO(38, 5, 95, 1);
 // App
 const appNameLabel = 'Mobn';
 
+// Home
+const homeLabel = 'Home';
+const homeIcon = Icons.home;
+
+// Profile
+const profileLabel = 'Profile';
+const profileIcon = Icons.face;
+
+// Notifications
+const notificationLabel = 'Notifications';
+const notificationsIcon = Icons.notifications_outlined;
+
 // Mobs
 const mobsLabel = 'Mobs';
 const mobsIcon = Icons.groups;
 
-// Profile
-const profileLabel = 'Profile';
-const profileIcon = Icons.person;
+// Learn
+const learnLabel = 'Learn';
+const learnIcon = Icons.school;
 
 // Settings
 const settingsLabel = 'Settings';

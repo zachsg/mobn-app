@@ -1,60 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../helpers/constants.dart';
-import '../mobs/mobs_view.dart';
-import '../profile/profile_view.dart';
+import '../home/home_view.dart';
+import '../learn/learn_view.dart';
+import '../profile/profile.dart';
 import '../settings/settings_view.dart';
 import '../widgets/xwidgets.dart';
 
-class BottomNavView extends StatefulWidget {
+class BottomNavView extends ConsumerStatefulWidget {
   const BottomNavView({super.key});
 
   static const routeName = '/bottom_nav';
 
   @override
-  State<BottomNavView> createState() => _BottomNavViewState();
+  ConsumerState<BottomNavView> createState() => _BottomNavViewState();
 }
 
-class _BottomNavViewState extends State<BottomNavView> {
+class _BottomNavViewState extends ConsumerState<BottomNavView> {
   int index = 0;
-  bool acceptedTerms = false;
+
+  Future<void> loadProviders() async {
+    ref.read(profileProvider.notifier).loadProfile();
+  }
 
   @override
   void initState() {
-    // TODO: Load profile, mobs, etc.
-    // Set accepted terms to whatever is true on profile.
-    acceptedTerms = true;
-
+    loadProviders();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     final body = index == 0
-        ? const MobsView()
+        ? const HomeView()
         : index == 1
-            ? const ProfileView()
+            ? const LearnView()
             : const SettingsView();
 
     return Scaffold(
-      body: acceptedTerms ? body : EulaWidget(),
+      body: ref.watch(profileProvider).profile.acceptedTerms
+          ? body
+          : EulaWidget(),
       bottomNavigationBar: NavigationBar(
         selectedIndex: index,
         onDestinationSelected: (newIndex) => setState(() => index = newIndex),
         destinations: [
           NavigationDestination(
-            icon: Icon(mobsIcon),
-            label: mobsLabel,
+            icon: Icon(homeIcon),
+            label: homeLabel,
           ),
           NavigationDestination(
-            icon: Icon(profileIcon),
-            label: profileLabel,
+            icon: Icon(learnIcon),
+            label: learnLabel,
           ),
           NavigationDestination(
             icon: Icon(settingsIcon),
             label: settingsLabel,
           ),
         ],
+        height: 64,
         labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
       ),
     );
