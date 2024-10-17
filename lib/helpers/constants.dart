@@ -9,6 +9,7 @@ const appNameLabel = 'Mobn';
 // Home
 const homeLabel = 'Home';
 const homeIcon = Icons.home;
+const calendarItemDefaultSize = 20.0;
 
 // Profile
 const profileLabel = 'Profile';

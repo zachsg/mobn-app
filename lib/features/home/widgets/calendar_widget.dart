@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:mobn/helpers/extensions.dart';
 
+import '../../../helpers/constants.dart';
+
 class CalendarWidget extends StatelessWidget {
   const CalendarWidget({super.key});
 
@@ -46,8 +48,8 @@ class CalendarWidget extends StatelessWidget {
                   children: [
                     SizedBox(
                       height: 256,
+                      width: MediaQuery.of(context).size.width,
                       child: GridView.builder(
-                        // padding: EdgeInsets.all(0),
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -63,7 +65,10 @@ class CalendarWidget extends StatelessWidget {
                             count += 1;
                             return const Text('');
                           } else if (index < lastDayOfMonth.day + count) {
-                            if (index > today.day) {
+                            if (index == today.day) {
+                              return CalendarItemFutureWidget(
+                                  showLabel: false, isToday: true);
+                            } else if (index > today.day) {
                               return CalendarItemFutureWidget(showLabel: false);
                             } else {
                               return CalendarItemDoneWidget(showLabel: false);
@@ -172,13 +177,13 @@ class CalendarLegendWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Row(
         children: [
-          CalendarItemDoneWidget(size: 20.0),
+          CalendarItemDoneWidget(size: 16.0),
           const SizedBox(width: 16),
-          CalendarItemPartDoneWidget(size: 20.0),
+          CalendarItemPartDoneWidget(size: 16.0),
           const SizedBox(width: 16),
-          CalendarItemNotDoneWidget(size: 20.0),
+          CalendarItemNotDoneWidget(size: 16.0),
           const SizedBox(width: 16),
-          CalendarItemFutureWidget(size: 20.0),
+          CalendarItemFutureWidget(size: 16.0),
         ],
       ),
     );
@@ -192,13 +197,15 @@ class CalendarLegendItemWidget extends StatelessWidget {
     required this.color,
     required this.isFilled,
     this.showLabel = true,
-    this.size = 32.0,
+    this.isToday = false,
+    this.size = calendarItemDefaultSize,
   });
 
   final String label;
   final Color color;
   final bool isFilled;
   final bool showLabel;
+  final bool isToday;
   final double size;
 
   @override
@@ -207,28 +214,39 @@ class CalendarLegendItemWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(4)),
-          child: Container(
-            width: size,
-            height: size,
-            decoration: BoxDecoration(
-              color: isFilled ? color : null,
-              border: isFilled
-                  ? null
-                  : Border.all(
-                      color: color,
-                      width: 2,
-                    ),
+        Stack(
+          alignment: AlignmentDirectional.center,
+          children: [
+            Container(
+              width: size,
+              height: size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: isFilled ? color : color.withOpacity(0.2),
+              ),
             ),
-          ),
+            if (isToday)
+              Container(
+                width: size * 1.75,
+                height: size * 1.75,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: color,
+                    width: 1,
+                  ),
+                ),
+              )
+          ],
         ),
         const SizedBox(width: 2),
         if (showLabel)
-          Text(
-            label,
-            style:
-                Theme.of(context).textTheme.labelMedium?.copyWith(color: color),
+          Opacity(
+            opacity: 0.6,
+            child: Text(
+              label,
+              style: Theme.of(context).textTheme.labelMedium,
+            ),
           ),
       ],
     );
@@ -239,10 +257,12 @@ class CalendarItemDoneWidget extends StatelessWidget {
   const CalendarItemDoneWidget({
     super.key,
     this.showLabel = true,
-    this.size = 32.0,
+    this.isToday = false,
+    this.size = calendarItemDefaultSize,
   });
 
   final bool showLabel;
+  final bool isToday;
   final double size;
 
   @override
@@ -252,6 +272,7 @@ class CalendarItemDoneWidget extends StatelessWidget {
       color: Colors.green,
       isFilled: true,
       showLabel: showLabel,
+      isToday: isToday,
       size: size,
     );
   }
@@ -261,10 +282,12 @@ class CalendarItemPartDoneWidget extends StatelessWidget {
   const CalendarItemPartDoneWidget({
     super.key,
     this.showLabel = true,
-    this.size = 32.0,
+    this.isToday = false,
+    this.size = calendarItemDefaultSize,
   });
 
   final bool showLabel;
+  final bool isToday;
   final double size;
 
   @override
@@ -274,6 +297,7 @@ class CalendarItemPartDoneWidget extends StatelessWidget {
       color: Colors.orange,
       isFilled: true,
       showLabel: showLabel,
+      isToday: false,
       size: size,
     );
   }
@@ -283,10 +307,12 @@ class CalendarItemNotDoneWidget extends StatelessWidget {
   const CalendarItemNotDoneWidget({
     super.key,
     this.showLabel = true,
-    this.size = 32.0,
+    this.isToday = false,
+    this.size = calendarItemDefaultSize,
   });
 
   final bool showLabel;
+  final bool isToday;
   final double size;
 
   @override
@@ -296,6 +322,7 @@ class CalendarItemNotDoneWidget extends StatelessWidget {
       color: Colors.red,
       isFilled: true,
       showLabel: showLabel,
+      isToday: isToday,
       size: size,
     );
   }
@@ -305,10 +332,12 @@ class CalendarItemFutureWidget extends StatelessWidget {
   const CalendarItemFutureWidget({
     super.key,
     this.showLabel = true,
-    this.size = 32.0,
+    this.isToday = false,
+    this.size = calendarItemDefaultSize,
   });
 
   final bool showLabel;
+  final bool isToday;
   final double size;
 
   @override
@@ -318,6 +347,7 @@ class CalendarItemFutureWidget extends StatelessWidget {
       color: Theme.of(context).colorScheme.primary,
       isFilled: false,
       showLabel: showLabel,
+      isToday: isToday,
       size: size,
     );
   }

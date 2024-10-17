@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:mobn/features/home/widgets/calendar_widget.dart';
 import 'package:mobn/helpers/extensions.dart';
 
@@ -50,17 +49,23 @@ class HomeView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               '${greeting()}, Zach',
-              style: Theme.of(context).textTheme.headlineLarge,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 4.0),
           CalendarWidget(),
-          const SizedBox(height: 16.0),
+          const SizedBox(height: 24.0),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'To-do Today',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 4.0),
@@ -74,7 +79,7 @@ class HomeView extends StatelessWidget {
               ),
               child: ListTile(
                 leading: Icon(Icons.lightbulb),
-                title: Text('Meditate'),
+                title: Text('Read'),
                 trailing: Icon(Icons.chevron_right),
                 tileColor: Theme.of(context).colorScheme.primaryContainer,
                 shape: RoundedRectangleBorder(
@@ -89,7 +94,10 @@ class HomeView extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               'Done Today',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.bold),
             ),
           ),
           const SizedBox(height: 4),
