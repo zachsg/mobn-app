@@ -11,6 +11,11 @@ extension DateTimeExtension on DateTime {
     return formatter.format(this);
   }
 
+  String monthNameLong() {
+    final DateFormat formatter = DateFormat('MMMM');
+    return formatter.format(this);
+  }
+
   String longform() {
     final DateFormat formatter = DateFormat('MMMM dd, yyyy');
     return formatter.format(this);

@@ -15,7 +15,10 @@ class MobnApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: primaryColor,
+          surface: backgroundColor,
+          surfaceContainer: backgroundColor,
         ),
+        scaffoldBackgroundColor: backgroundColor,
       ),
       darkTheme: ThemeData(
         colorScheme: ColorScheme.fromSeed(

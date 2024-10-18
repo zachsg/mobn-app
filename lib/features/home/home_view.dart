@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobn/features/home/widgets/calendar_widget.dart';
 import 'package:mobn/helpers/extensions.dart';
@@ -7,13 +8,13 @@ import '../../helpers/constants.dart';
 import '../notifications/notifications_view.dart';
 import '../profile/profile_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends ConsumerWidget {
   const HomeView({super.key});
 
   static const routeName = '/home';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final date = DateTime.now().longform();
 
     return Scaffold(
@@ -36,7 +37,7 @@ class HomeView extends StatelessWidget {
       body: ListView(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: mainPadding),
             child: Text(
               date,
               style: Theme.of(context)
@@ -46,7 +47,7 @@ class HomeView extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: mainPadding),
             child: Text(
               '${greeting()}, Zach',
               style: Theme.of(context)
@@ -59,9 +60,9 @@ class HomeView extends StatelessWidget {
           CalendarWidget(),
           const SizedBox(height: 24.0),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: mainPadding),
             child: Text(
-              'To-do Today',
+              'Mobs',
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall
@@ -70,42 +71,73 @@ class HomeView extends StatelessWidget {
           ),
           const SizedBox(height: 4.0),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: mainPadding),
             child: Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                borderRadius:
+                    BorderRadius.all(Radius.circular(cornerRadiusDefault)),
                 border:
                     Border.all(color: Theme.of(context).colorScheme.primary),
               ),
-              child: ListTile(
-                leading: Icon(Icons.lightbulb),
-                title: Text('Read'),
-                trailing: Icon(Icons.chevron_right),
-                tileColor: Theme.of(context).colorScheme.primaryContainer,
+              child: Material(
+                elevation: 1,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderRadius:
+                      BorderRadius.all(Radius.circular(cornerRadiusDefault)),
                 ),
-                onTap: () {},
+                child: ListTile(
+                  // TODO: if you're done for the day, change to filled circle with color
+                  leading: true
+                      ? Icon(
+                          Icons.circle_outlined,
+                          color: Theme.of(context).colorScheme.surface,
+                          size: 28,
+                        )
+                      : Icon(
+                          Icons.circle,
+                          color: doneColor,
+                          size: 32,
+                        ),
+                  title: Text(
+                    'Reading',
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          color: Theme.of(context).colorScheme.surface,
+                          fontWeight: FontWeight.bold,
+                        ),
+                  ),
+                  subtitle: Row(
+                    children: [
+                      Icon(
+                        Icons.face,
+                        color: doneColor,
+                        size: 20,
+                      ),
+                      Icon(
+                        Icons.face,
+                        color: partDoneColor,
+                        size: 20,
+                      ),
+                      Icon(
+                        Icons.face,
+                        color: Theme.of(context).colorScheme.surface,
+                        size: 20,
+                      ),
+                    ],
+                  ),
+                  // Text('3 additional mob mates'),
+                  trailing: Icon(
+                    Icons.chevron_right,
+                    color: Theme.of(context).colorScheme.surface,
+                    size: 28,
+                  ),
+                  tileColor: Theme.of(context).colorScheme.onSurface,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.all(Radius.circular(cornerRadiusDefault)),
+                  ),
+                  onTap: () {},
+                ),
               ),
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'Done Today',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall
-                  ?.copyWith(fontWeight: FontWeight.bold),
-            ),
-          ),
-          const SizedBox(height: 4),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'Time to take action!',
-              style: Theme.of(context).textTheme.labelLarge,
             ),
           ),
           const SizedBox(height: 32.0),
