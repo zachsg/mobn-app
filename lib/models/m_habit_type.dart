@@ -1,0 +1,4 @@
+enum MHabitType {
+  meditate,
+  read;
+}

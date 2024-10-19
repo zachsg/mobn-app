@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'm_action_model.dart';
+import 'm_goal_model.dart';
+
 part 'm_profile_model.freezed.dart';
 part 'm_profile_model.g.dart';
 
@@ -10,9 +13,10 @@ class MProfileModel with _$MProfileModel {
     @Default('') String name,
     @Default('') String email,
     @Default('') String handle,
-    @Default('') String bio,
     @Default('') String avatar,
-    @Default([]) @JsonKey(name: 'mob_ids') List<String> mobIDs,
+    @Default([]) List<MGoalModel> goals,
+    @Default([]) List<MActionModel> actions,
+    @Default([]) @JsonKey(name: 'mate_ids') List<String> mateIDs,
     @Default('') @JsonKey(name: 'push_token') String pushToken,
     @Default(false) @JsonKey(name: 'is_pro') bool isPro,
     @Default(false) @JsonKey(name: 'accepted_terms') bool acceptedTerms,

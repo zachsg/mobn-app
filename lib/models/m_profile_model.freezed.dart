@@ -24,10 +24,11 @@ mixin _$MProfileModel {
   String get name => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get handle => throw _privateConstructorUsedError;
-  String get bio => throw _privateConstructorUsedError;
   String get avatar => throw _privateConstructorUsedError;
-  @JsonKey(name: 'mob_ids')
-  List<String> get mobIDs => throw _privateConstructorUsedError;
+  List<MGoalModel> get goals => throw _privateConstructorUsedError;
+  List<MActionModel> get actions => throw _privateConstructorUsedError;
+  @JsonKey(name: 'mate_ids')
+  List<String> get mateIDs => throw _privateConstructorUsedError;
   @JsonKey(name: 'push_token')
   String get pushToken => throw _privateConstructorUsedError;
   @JsonKey(name: 'is_pro')
@@ -56,9 +57,10 @@ abstract class $MProfileModelCopyWith<$Res> {
       String name,
       String email,
       String handle,
-      String bio,
       String avatar,
-      @JsonKey(name: 'mob_ids') List<String> mobIDs,
+      List<MGoalModel> goals,
+      List<MActionModel> actions,
+      @JsonKey(name: 'mate_ids') List<String> mateIDs,
       @JsonKey(name: 'push_token') String pushToken,
       @JsonKey(name: 'is_pro') bool isPro,
       @JsonKey(name: 'accepted_terms') bool acceptedTerms});
@@ -83,9 +85,10 @@ class _$MProfileModelCopyWithImpl<$Res, $Val extends MProfileModel>
     Object? name = null,
     Object? email = null,
     Object? handle = null,
-    Object? bio = null,
     Object? avatar = null,
-    Object? mobIDs = null,
+    Object? goals = null,
+    Object? actions = null,
+    Object? mateIDs = null,
     Object? pushToken = null,
     Object? isPro = null,
     Object? acceptedTerms = null,
@@ -107,17 +110,21 @@ class _$MProfileModelCopyWithImpl<$Res, $Val extends MProfileModel>
           ? _value.handle
           : handle // ignore: cast_nullable_to_non_nullable
               as String,
-      bio: null == bio
-          ? _value.bio
-          : bio // ignore: cast_nullable_to_non_nullable
-              as String,
       avatar: null == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
-      mobIDs: null == mobIDs
-          ? _value.mobIDs
-          : mobIDs // ignore: cast_nullable_to_non_nullable
+      goals: null == goals
+          ? _value.goals
+          : goals // ignore: cast_nullable_to_non_nullable
+              as List<MGoalModel>,
+      actions: null == actions
+          ? _value.actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<MActionModel>,
+      mateIDs: null == mateIDs
+          ? _value.mateIDs
+          : mateIDs // ignore: cast_nullable_to_non_nullable
               as List<String>,
       pushToken: null == pushToken
           ? _value.pushToken
@@ -148,9 +155,10 @@ abstract class _$$MProfileModelImplCopyWith<$Res>
       String name,
       String email,
       String handle,
-      String bio,
       String avatar,
-      @JsonKey(name: 'mob_ids') List<String> mobIDs,
+      List<MGoalModel> goals,
+      List<MActionModel> actions,
+      @JsonKey(name: 'mate_ids') List<String> mateIDs,
       @JsonKey(name: 'push_token') String pushToken,
       @JsonKey(name: 'is_pro') bool isPro,
       @JsonKey(name: 'accepted_terms') bool acceptedTerms});
@@ -173,9 +181,10 @@ class __$$MProfileModelImplCopyWithImpl<$Res>
     Object? name = null,
     Object? email = null,
     Object? handle = null,
-    Object? bio = null,
     Object? avatar = null,
-    Object? mobIDs = null,
+    Object? goals = null,
+    Object? actions = null,
+    Object? mateIDs = null,
     Object? pushToken = null,
     Object? isPro = null,
     Object? acceptedTerms = null,
@@ -197,17 +206,21 @@ class __$$MProfileModelImplCopyWithImpl<$Res>
           ? _value.handle
           : handle // ignore: cast_nullable_to_non_nullable
               as String,
-      bio: null == bio
-          ? _value.bio
-          : bio // ignore: cast_nullable_to_non_nullable
-              as String,
       avatar: null == avatar
           ? _value.avatar
           : avatar // ignore: cast_nullable_to_non_nullable
               as String,
-      mobIDs: null == mobIDs
-          ? _value._mobIDs
-          : mobIDs // ignore: cast_nullable_to_non_nullable
+      goals: null == goals
+          ? _value._goals
+          : goals // ignore: cast_nullable_to_non_nullable
+              as List<MGoalModel>,
+      actions: null == actions
+          ? _value._actions
+          : actions // ignore: cast_nullable_to_non_nullable
+              as List<MActionModel>,
+      mateIDs: null == mateIDs
+          ? _value._mateIDs
+          : mateIDs // ignore: cast_nullable_to_non_nullable
               as List<String>,
       pushToken: null == pushToken
           ? _value.pushToken
@@ -233,13 +246,16 @@ class _$MProfileModelImpl implements _MProfileModel {
       this.name = '',
       this.email = '',
       this.handle = '',
-      this.bio = '',
       this.avatar = '',
-      @JsonKey(name: 'mob_ids') final List<String> mobIDs = const [],
+      final List<MGoalModel> goals = const [],
+      final List<MActionModel> actions = const [],
+      @JsonKey(name: 'mate_ids') final List<String> mateIDs = const [],
       @JsonKey(name: 'push_token') this.pushToken = '',
       @JsonKey(name: 'is_pro') this.isPro = false,
       @JsonKey(name: 'accepted_terms') this.acceptedTerms = false})
-      : _mobIDs = mobIDs;
+      : _goals = goals,
+        _actions = actions,
+        _mateIDs = mateIDs;
 
   factory _$MProfileModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MProfileModelImplFromJson(json);
@@ -257,17 +273,32 @@ class _$MProfileModelImpl implements _MProfileModel {
   final String handle;
   @override
   @JsonKey()
-  final String bio;
+  final String avatar;
+  final List<MGoalModel> _goals;
   @override
   @JsonKey()
-  final String avatar;
-  final List<String> _mobIDs;
-  @override
-  @JsonKey(name: 'mob_ids')
-  List<String> get mobIDs {
-    if (_mobIDs is EqualUnmodifiableListView) return _mobIDs;
+  List<MGoalModel> get goals {
+    if (_goals is EqualUnmodifiableListView) return _goals;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_mobIDs);
+    return EqualUnmodifiableListView(_goals);
+  }
+
+  final List<MActionModel> _actions;
+  @override
+  @JsonKey()
+  List<MActionModel> get actions {
+    if (_actions is EqualUnmodifiableListView) return _actions;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_actions);
+  }
+
+  final List<String> _mateIDs;
+  @override
+  @JsonKey(name: 'mate_ids')
+  List<String> get mateIDs {
+    if (_mateIDs is EqualUnmodifiableListView) return _mateIDs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_mateIDs);
   }
 
   @override
@@ -282,7 +313,7 @@ class _$MProfileModelImpl implements _MProfileModel {
 
   @override
   String toString() {
-    return 'MProfileModel(id: $id, name: $name, email: $email, handle: $handle, bio: $bio, avatar: $avatar, mobIDs: $mobIDs, pushToken: $pushToken, isPro: $isPro, acceptedTerms: $acceptedTerms)';
+    return 'MProfileModel(id: $id, name: $name, email: $email, handle: $handle, avatar: $avatar, goals: $goals, actions: $actions, mateIDs: $mateIDs, pushToken: $pushToken, isPro: $isPro, acceptedTerms: $acceptedTerms)';
   }
 
   @override
@@ -294,9 +325,10 @@ class _$MProfileModelImpl implements _MProfileModel {
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.handle, handle) || other.handle == handle) &&
-            (identical(other.bio, bio) || other.bio == bio) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            const DeepCollectionEquality().equals(other._mobIDs, _mobIDs) &&
+            const DeepCollectionEquality().equals(other._goals, _goals) &&
+            const DeepCollectionEquality().equals(other._actions, _actions) &&
+            const DeepCollectionEquality().equals(other._mateIDs, _mateIDs) &&
             (identical(other.pushToken, pushToken) ||
                 other.pushToken == pushToken) &&
             (identical(other.isPro, isPro) || other.isPro == isPro) &&
@@ -312,9 +344,10 @@ class _$MProfileModelImpl implements _MProfileModel {
       name,
       email,
       handle,
-      bio,
       avatar,
-      const DeepCollectionEquality().hash(_mobIDs),
+      const DeepCollectionEquality().hash(_goals),
+      const DeepCollectionEquality().hash(_actions),
+      const DeepCollectionEquality().hash(_mateIDs),
       pushToken,
       isPro,
       acceptedTerms);
@@ -341,9 +374,10 @@ abstract class _MProfileModel implements MProfileModel {
           final String name,
           final String email,
           final String handle,
-          final String bio,
           final String avatar,
-          @JsonKey(name: 'mob_ids') final List<String> mobIDs,
+          final List<MGoalModel> goals,
+          final List<MActionModel> actions,
+          @JsonKey(name: 'mate_ids') final List<String> mateIDs,
           @JsonKey(name: 'push_token') final String pushToken,
           @JsonKey(name: 'is_pro') final bool isPro,
           @JsonKey(name: 'accepted_terms') final bool acceptedTerms}) =
@@ -361,12 +395,14 @@ abstract class _MProfileModel implements MProfileModel {
   @override
   String get handle;
   @override
-  String get bio;
-  @override
   String get avatar;
   @override
-  @JsonKey(name: 'mob_ids')
-  List<String> get mobIDs;
+  List<MGoalModel> get goals;
+  @override
+  List<MActionModel> get actions;
+  @override
+  @JsonKey(name: 'mate_ids')
+  List<String> get mateIDs;
   @override
   @JsonKey(name: 'push_token')
   String get pushToken;

@@ -12,9 +12,16 @@ _$MProfileModelImpl _$$MProfileModelImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String? ?? '',
       email: json['email'] as String? ?? '',
       handle: json['handle'] as String? ?? '',
-      bio: json['bio'] as String? ?? '',
       avatar: json['avatar'] as String? ?? '',
-      mobIDs: (json['mob_ids'] as List<dynamic>?)
+      goals: (json['goals'] as List<dynamic>?)
+              ?.map((e) => MGoalModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      actions: (json['actions'] as List<dynamic>?)
+              ?.map((e) => MActionModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      mateIDs: (json['mate_ids'] as List<dynamic>?)
               ?.map((e) => e as String)
               .toList() ??
           const [],
@@ -29,9 +36,10 @@ Map<String, dynamic> _$$MProfileModelImplToJson(_$MProfileModelImpl instance) =>
       'name': instance.name,
       'email': instance.email,
       'handle': instance.handle,
-      'bio': instance.bio,
       'avatar': instance.avatar,
-      'mob_ids': instance.mobIDs,
+      'goals': instance.goals,
+      'actions': instance.actions,
+      'mate_ids': instance.mateIDs,
       'push_token': instance.pushToken,
       'is_pro': instance.isPro,
       'accepted_terms': instance.acceptedTerms,
