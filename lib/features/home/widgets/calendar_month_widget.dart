@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobn/features/home/widgets/calendar_item_not_done_widget.dart';
 import 'package:mobn/helpers/extensions.dart';
 
 import '../../../helpers/constants.dart';
+import '../../../models/xmodels.dart';
 import 'calendar_item_done_widget.dart';
 import 'calendar_item_future_widget.dart';
 
 class CalendarMonthWidget extends StatelessWidget {
-  const CalendarMonthWidget({super.key, required this.date});
+  const CalendarMonthWidget({
+    super.key,
+    required this.date,
+    required this.startDate,
+    required this.profile,
+  });
 
   final DateTime date;
+  final DateTime startDate;
+  final MProfileModel profile;
 
   @override
   Widget build(BuildContext context) {
@@ -73,16 +82,28 @@ class CalendarMonthWidget extends StatelessWidget {
                       itemBuilder: (context, index) {
                         if (count < _extraItemCount(firstDayOfMonth)) {
                           count += 1;
-                          return const Text('');
+                          return const SizedBox();
                         } else if (index < lastDayOfMonth.day + count) {
                           if (index == today.day + 1 &&
                               date.month == today.month) {
+                            // It's today
+                            // TODO: add logic to color the day dot based on actions
                             return CalendarItemFutureWidget(
                                 showLabel: false, isToday: true);
-                          } else if (index > today.day) {
+                          } else if ((index > today.day &&
+                                  date.month == today.month) ||
+                              date
+                                  .add(Duration(
+                                      days: index +
+                                          1 -
+                                          _extraItemCount(firstDayOfMonth)))
+                                  .isBefore(startDate)) {
+                            // It's the future
                             return CalendarItemFutureWidget(showLabel: false);
                           } else {
-                            return CalendarItemDoneWidget(showLabel: false);
+                            // It's a day in the past
+                            // TODO: add logic to color the day dot based on actions
+                            return CalendarItemNotDoneWidget(showLabel: false);
                           }
                         } else {
                           extraCount += 1;

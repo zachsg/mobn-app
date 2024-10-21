@@ -17,6 +17,7 @@ class MobnApp extends StatelessWidget {
           seedColor: primaryColor,
           surface: backgroundColor,
           surfaceContainer: backgroundColor,
+          surfaceContainerLow: backgroundColor,
         ),
         scaffoldBackgroundColor: backgroundColor,
       ),

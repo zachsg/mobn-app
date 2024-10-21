@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension DateTimeExtension on DateTime {
@@ -50,5 +51,67 @@ extension DateTimeExtension on DateTime {
       default:
         return '';
     }
+  }
+}
+
+extension StringExtension on String {
+  String habitDoing() {
+    switch (toLowerCase()) {
+      case 'cook':
+        return 'Cooking';
+      case 'draw':
+        return 'Drawing';
+      case 'exercise':
+        return 'Exercising';
+      case 'meditate':
+        return 'Meditating';
+      case 'read':
+        return 'Reading';
+      default:
+        return 'Growing';
+    }
+  }
+
+  String habitDid() {
+    switch (toLowerCase()) {
+      case 'cook':
+        return 'Cooked';
+      case 'draw':
+        return 'Drew';
+      case 'exercise':
+        return 'Exercised';
+      case 'meditate':
+        return 'Meditated';
+      case 'read':
+        return 'Read';
+      default:
+        return 'Grew';
+    }
+  }
+
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1)}";
+  }
+}
+
+extension ShowSnackBar on BuildContext {
+  void showSnackBar({
+    required String message,
+    int seconds = 4,
+    SnackBarBehavior behavior = SnackBarBehavior.fixed,
+  }) {
+    ScaffoldMessenger.of(this).removeCurrentSnackBar();
+    ScaffoldMessenger.of(this).showSnackBar(SnackBar(
+      duration: Duration(seconds: seconds),
+      content: Text(message),
+      behavior: behavior,
+    ));
+  }
+
+  void showErrorSnackBar({
+    required String message,
+    SnackBarBehavior behavior = SnackBarBehavior.fixed,
+  }) {
+    showSnackBar(message: message, behavior: behavior);
   }
 }

@@ -6,7 +6,22 @@ part of 'profile.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$profileHash() => r'795580b1a3d11b2c44357c3db2d5b12bc4c90dc4';
+String _$profileStreamHash() => r'04e633b8dd5ec90f9b367e523bdd314d4e2a29ab';
+
+/// See also [profileStream].
+@ProviderFor(profileStream)
+final profileStreamProvider = AutoDisposeStreamProvider<MProfileModel>.internal(
+  profileStream,
+  name: r'profileStreamProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$profileStreamHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef ProfileStreamRef = AutoDisposeStreamProviderRef<MProfileModel>;
+String _$profileHash() => r'dd3f043b170b94886a56710c5f13a66b2e0b046d';
 
 /// See also [Profile].
 @ProviderFor(Profile)

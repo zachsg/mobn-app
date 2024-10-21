@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'profile_model.dart';
+part of 'mobs_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,45 +14,44 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) {
-  return _ProfileModel.fromJson(json);
+MobsModel _$MobsModelFromJson(Map<String, dynamic> json) {
+  return _MobsModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$ProfileModel {
+mixin _$MobsModel {
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
-  /// Serializes this ProfileModel to a JSON map.
+  /// Serializes this MobsModel to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of ProfileModel
+  /// Create a copy of MobsModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProfileModelCopyWith<ProfileModel> get copyWith =>
+  $MobsModelCopyWith<MobsModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ProfileModelCopyWith<$Res> {
-  factory $ProfileModelCopyWith(
-          ProfileModel value, $Res Function(ProfileModel) then) =
-      _$ProfileModelCopyWithImpl<$Res, ProfileModel>;
+abstract class $MobsModelCopyWith<$Res> {
+  factory $MobsModelCopyWith(MobsModel value, $Res Function(MobsModel) then) =
+      _$MobsModelCopyWithImpl<$Res, MobsModel>;
   @useResult
   $Res call({bool loading, String? error});
 }
 
 /// @nodoc
-class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
-    implements $ProfileModelCopyWith<$Res> {
-  _$ProfileModelCopyWithImpl(this._value, this._then);
+class _$MobsModelCopyWithImpl<$Res, $Val extends MobsModel>
+    implements $MobsModelCopyWith<$Res> {
+  _$MobsModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of ProfileModel
+  /// Create a copy of MobsModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -74,25 +73,25 @@ class _$ProfileModelCopyWithImpl<$Res, $Val extends ProfileModel>
 }
 
 /// @nodoc
-abstract class _$$ProfileModelImplCopyWith<$Res>
-    implements $ProfileModelCopyWith<$Res> {
-  factory _$$ProfileModelImplCopyWith(
-          _$ProfileModelImpl value, $Res Function(_$ProfileModelImpl) then) =
-      __$$ProfileModelImplCopyWithImpl<$Res>;
+abstract class _$$MobsModelImplCopyWith<$Res>
+    implements $MobsModelCopyWith<$Res> {
+  factory _$$MobsModelImplCopyWith(
+          _$MobsModelImpl value, $Res Function(_$MobsModelImpl) then) =
+      __$$MobsModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({bool loading, String? error});
 }
 
 /// @nodoc
-class __$$ProfileModelImplCopyWithImpl<$Res>
-    extends _$ProfileModelCopyWithImpl<$Res, _$ProfileModelImpl>
-    implements _$$ProfileModelImplCopyWith<$Res> {
-  __$$ProfileModelImplCopyWithImpl(
-      _$ProfileModelImpl _value, $Res Function(_$ProfileModelImpl) _then)
+class __$$MobsModelImplCopyWithImpl<$Res>
+    extends _$MobsModelCopyWithImpl<$Res, _$MobsModelImpl>
+    implements _$$MobsModelImplCopyWith<$Res> {
+  __$$MobsModelImplCopyWithImpl(
+      _$MobsModelImpl _value, $Res Function(_$MobsModelImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ProfileModel
+  /// Create a copy of MobsModel
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -100,7 +99,7 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
     Object? loading = null,
     Object? error = freezed,
   }) {
-    return _then(_$ProfileModelImpl(
+    return _then(_$MobsModelImpl(
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -115,11 +114,11 @@ class __$$ProfileModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$ProfileModelImpl implements _ProfileModel {
-  _$ProfileModelImpl({this.loading = false, this.error});
+class _$MobsModelImpl implements _MobsModel {
+  _$MobsModelImpl({this.loading = false, this.error});
 
-  factory _$ProfileModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$ProfileModelImplFromJson(json);
+  factory _$MobsModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$MobsModelImplFromJson(json);
 
   @override
   @JsonKey()
@@ -129,14 +128,14 @@ class _$ProfileModelImpl implements _ProfileModel {
 
   @override
   String toString() {
-    return 'ProfileModel(loading: $loading, error: $error)';
+    return 'MobsModel(loading: $loading, error: $error)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ProfileModelImpl &&
+            other is _$MobsModelImpl &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
@@ -145,38 +144,38 @@ class _$ProfileModelImpl implements _ProfileModel {
   @override
   int get hashCode => Object.hash(runtimeType, loading, error);
 
-  /// Create a copy of ProfileModel
+  /// Create a copy of MobsModel
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ProfileModelImplCopyWith<_$ProfileModelImpl> get copyWith =>
-      __$$ProfileModelImplCopyWithImpl<_$ProfileModelImpl>(this, _$identity);
+  _$$MobsModelImplCopyWith<_$MobsModelImpl> get copyWith =>
+      __$$MobsModelImplCopyWithImpl<_$MobsModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$ProfileModelImplToJson(
+    return _$$MobsModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _ProfileModel implements ProfileModel {
-  factory _ProfileModel({final bool loading, final String? error}) =
-      _$ProfileModelImpl;
+abstract class _MobsModel implements MobsModel {
+  factory _MobsModel({final bool loading, final String? error}) =
+      _$MobsModelImpl;
 
-  factory _ProfileModel.fromJson(Map<String, dynamic> json) =
-      _$ProfileModelImpl.fromJson;
+  factory _MobsModel.fromJson(Map<String, dynamic> json) =
+      _$MobsModelImpl.fromJson;
 
   @override
   bool get loading;
   @override
   String? get error;
 
-  /// Create a copy of ProfileModel
+  /// Create a copy of MobsModel
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProfileModelImplCopyWith<_$ProfileModelImpl> get copyWith =>
+  _$$MobsModelImplCopyWith<_$MobsModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

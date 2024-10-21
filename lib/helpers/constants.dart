@@ -15,6 +15,14 @@ const calendarItemDefaultSize = 16.0;
 const cornerRadiusDefault = 52.0;
 const double mainPadding = 32;
 
+// Shared
+const incrementIcon = Icons.add;
+const decrementIcon = Icons.remove;
+const closeIcon = Icons.cancel;
+const infoIcon = Icons.info;
+const saveLabel = 'Save';
+const createLabel = 'Create';
+
 // Home
 const homeLabel = 'Home';
 const homeIcon = Icons.home;
@@ -22,6 +30,9 @@ const doneLabel = 'Done';
 const partDoneLabel = 'Part';
 const notDoneLabel = 'Miss';
 const futureLabel = 'Next';
+
+// New mob
+const newMobTitleLabel = 'New mob';
 
 // Profile
 const profileLabel = 'Profile';

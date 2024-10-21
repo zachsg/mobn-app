@@ -9,6 +9,26 @@ class Database {
   static const profilesCollection = 'profiles';
   static const mobsCollection = 'mobs';
 
+  static Future<bool> acceptTerms() async {
+    final id = FirebaseAuth.instance.currentUser?.uid;
+
+    try {
+      if (id != null) {
+        final data = {"accepted_terms": true};
+
+        await db
+            .collection(profilesCollection)
+            .doc(id)
+            .set(data, SetOptions(merge: true));
+
+        return true;
+      }
+    } catch (e) {
+      return false;
+    }
+    return false;
+  }
+
   static Future<MProfileModel> loadProfile() async {
     final user = FirebaseAuth.instance.currentUser;
 
@@ -34,32 +54,59 @@ class Database {
     return MProfileModel(id: '');
   }
 
-  static Future<bool> acceptTerms() async {
-    final id = FirebaseAuth.instance.currentUser?.uid;
-
-    try {
-      if (id != null) {
-        final data = {"accepted_terms": true};
-
-        await db
-            .collection(profilesCollection)
-            .doc(id)
-            .set(data, SetOptions(merge: true));
-
-        return true;
-      }
-    } catch (e) {
-      return false;
-    }
-    return false;
+  static Stream<MProfileModel> streamProfile(User user) {
+    return db
+        .collection(profilesCollection)
+        .doc(user.uid)
+        .withConverter<MProfileModel>(
+          fromFirestore: (snapshot, _) =>
+              MProfileModel.fromJson(snapshot.data()!),
+          toFirestore: (profile, _) => profile.toJson(),
+        )
+        .snapshots()
+        .map((snapshot) => snapshot.data()!);
   }
 
   static Future<bool> updateProfile(MProfileModel profile) async {
     try {
-      await db.collection(profilesCollection).add(profile.toJson());
+      await db
+          .collection(profilesCollection)
+          .doc(profile.id)
+          .update(profile.toJson());
       return true;
     } catch (e) {
       return false;
+    }
+  }
+
+  static Future<bool> createMob(MMobModel mob) async {
+    try {
+      await db.collection(mobsCollection).add(mob.toJson());
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static Stream<List<MMobModel>> streamMobs(User user) async* {
+    List<MMobModel> allMobs = [];
+
+    await for (final snapshot in db
+        .collection(mobsCollection)
+        .where('mate_ids', arrayContains: user.uid)
+        .withConverter<MMobModel>(
+          fromFirestore: (snapshot, _) => MMobModel.fromJson(snapshot.data()!),
+          toFirestore: (profile, _) => profile.toJson(),
+        )
+        .snapshots()) {
+      allMobs.clear();
+
+      for (final doc in snapshot.docs) {
+        final mob = doc.data();
+
+        allMobs = [...allMobs, mob];
+        yield allMobs;
+      }
     }
   }
 }

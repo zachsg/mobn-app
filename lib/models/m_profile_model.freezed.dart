@@ -239,7 +239,8 @@ class __$$MProfileModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$MProfileModelImpl implements _MProfileModel {
   _$MProfileModelImpl(
       {required this.id,

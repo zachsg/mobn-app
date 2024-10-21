@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'profile_model.dart';
+part of 'mobs_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ProfileModelImpl _$$ProfileModelImplFromJson(Map<String, dynamic> json) =>
-    _$ProfileModelImpl(
+_$MobsModelImpl _$$MobsModelImplFromJson(Map<String, dynamic> json) =>
+    _$MobsModelImpl(
       loading: json['loading'] as bool? ?? false,
       error: json['error'] as String?,
     );
 
-Map<String, dynamic> _$$ProfileModelImplToJson(_$ProfileModelImpl instance) =>
+Map<String, dynamic> _$$MobsModelImplToJson(_$MobsModelImpl instance) =>
     <String, dynamic>{
       'loading': instance.loading,
       'error': instance.error,

@@ -11,17 +11,8 @@ part 'profile.g.dart';
 class Profile extends _$Profile {
   @override
   ProfileModel build() => ProfileModel(
-        profile: MProfileModel(
-          id: FirebaseAuth.instance.currentUser?.uid ?? '',
-          acceptedTerms: true,
-        ),
-        loading: true,
+        loading: false,
       );
-
-  Future<void> loadProfile() async {
-    final p = await Database.loadProfile();
-    state = state.copyWith(profile: p, loading: false);
-  }
 
   Future<bool> updateProfile(MProfileModel profile) async {
     return await Database.updateProfile(profile);
@@ -30,11 +21,18 @@ class Profile extends _$Profile {
   Future<void> acceptTerms() async {
     state = state.copyWith(loading: true);
 
-    final success = await Database.acceptTerms();
-    if (success) {
-      await loadProfile();
-    }
+    await Database.acceptTerms();
 
     state = state.copyWith(loading: false);
   }
+}
+
+@riverpod
+Stream<MProfileModel> profileStream(ProfileStreamRef ref) {
+  final user = FirebaseAuth.instance.currentUser;
+  if (user == null) {
+    throw AssertionError('User can\'t be null');
+  }
+
+  return Database.streamProfile(user);
 }

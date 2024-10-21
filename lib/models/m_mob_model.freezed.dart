@@ -22,6 +22,7 @@ MMobModel _$MMobModelFromJson(Map<String, dynamic> json) {
 mixin _$MMobModel {
   @JsonKey(name: 'mate_ids')
   List<String> get mateIDs => throw _privateConstructorUsedError;
+  List<MProfileModel> get mates => throw _privateConstructorUsedError;
   @JsonKey(name: 'habit_type')
   MHabitType get habitType => throw _privateConstructorUsedError;
 
@@ -42,6 +43,7 @@ abstract class $MMobModelCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'mate_ids') List<String> mateIDs,
+      List<MProfileModel> mates,
       @JsonKey(name: 'habit_type') MHabitType habitType});
 }
 
@@ -61,6 +63,7 @@ class _$MMobModelCopyWithImpl<$Res, $Val extends MMobModel>
   @override
   $Res call({
     Object? mateIDs = null,
+    Object? mates = null,
     Object? habitType = null,
   }) {
     return _then(_value.copyWith(
@@ -68,6 +71,10 @@ class _$MMobModelCopyWithImpl<$Res, $Val extends MMobModel>
           ? _value.mateIDs
           : mateIDs // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      mates: null == mates
+          ? _value.mates
+          : mates // ignore: cast_nullable_to_non_nullable
+              as List<MProfileModel>,
       habitType: null == habitType
           ? _value.habitType
           : habitType // ignore: cast_nullable_to_non_nullable
@@ -86,6 +93,7 @@ abstract class _$$MMobModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'mate_ids') List<String> mateIDs,
+      List<MProfileModel> mates,
       @JsonKey(name: 'habit_type') MHabitType habitType});
 }
 
@@ -103,6 +111,7 @@ class __$$MMobModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? mateIDs = null,
+    Object? mates = null,
     Object? habitType = null,
   }) {
     return _then(_$MMobModelImpl(
@@ -110,6 +119,10 @@ class __$$MMobModelImplCopyWithImpl<$Res>
           ? _value._mateIDs
           : mateIDs // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      mates: null == mates
+          ? _value._mates
+          : mates // ignore: cast_nullable_to_non_nullable
+              as List<MProfileModel>,
       habitType: null == habitType
           ? _value.habitType
           : habitType // ignore: cast_nullable_to_non_nullable
@@ -119,12 +132,15 @@ class __$$MMobModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$MMobModelImpl implements _MMobModel {
   _$MMobModelImpl(
       {@JsonKey(name: 'mate_ids') required final List<String> mateIDs,
+      required final List<MProfileModel> mates,
       @JsonKey(name: 'habit_type') required this.habitType})
-      : _mateIDs = mateIDs;
+      : _mateIDs = mateIDs,
+        _mates = mates;
 
   factory _$MMobModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MMobModelImplFromJson(json);
@@ -138,13 +154,21 @@ class _$MMobModelImpl implements _MMobModel {
     return EqualUnmodifiableListView(_mateIDs);
   }
 
+  final List<MProfileModel> _mates;
+  @override
+  List<MProfileModel> get mates {
+    if (_mates is EqualUnmodifiableListView) return _mates;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_mates);
+  }
+
   @override
   @JsonKey(name: 'habit_type')
   final MHabitType habitType;
 
   @override
   String toString() {
-    return 'MMobModel(mateIDs: $mateIDs, habitType: $habitType)';
+    return 'MMobModel(mateIDs: $mateIDs, mates: $mates, habitType: $habitType)';
   }
 
   @override
@@ -153,6 +177,7 @@ class _$MMobModelImpl implements _MMobModel {
         (other.runtimeType == runtimeType &&
             other is _$MMobModelImpl &&
             const DeepCollectionEquality().equals(other._mateIDs, _mateIDs) &&
+            const DeepCollectionEquality().equals(other._mates, _mates) &&
             (identical(other.habitType, habitType) ||
                 other.habitType == habitType));
   }
@@ -160,7 +185,10 @@ class _$MMobModelImpl implements _MMobModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_mateIDs), habitType);
+      runtimeType,
+      const DeepCollectionEquality().hash(_mateIDs),
+      const DeepCollectionEquality().hash(_mates),
+      habitType);
 
   /// Create a copy of MMobModel
   /// with the given fields replaced by the non-null parameter values.
@@ -181,6 +209,7 @@ class _$MMobModelImpl implements _MMobModel {
 abstract class _MMobModel implements MMobModel {
   factory _MMobModel(
           {@JsonKey(name: 'mate_ids') required final List<String> mateIDs,
+          required final List<MProfileModel> mates,
           @JsonKey(name: 'habit_type') required final MHabitType habitType}) =
       _$MMobModelImpl;
 
@@ -190,6 +219,8 @@ abstract class _MMobModel implements MMobModel {
   @override
   @JsonKey(name: 'mate_ids')
   List<String> get mateIDs;
+  @override
+  List<MProfileModel> get mates;
   @override
   @JsonKey(name: 'habit_type')
   MHabitType get habitType;

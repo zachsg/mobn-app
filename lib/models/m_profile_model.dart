@@ -8,6 +8,7 @@ part 'm_profile_model.g.dart';
 
 @freezed
 class MProfileModel with _$MProfileModel {
+  @JsonSerializable(explicitToJson: true)
   factory MProfileModel({
     required String id,
     @Default('') String name,
