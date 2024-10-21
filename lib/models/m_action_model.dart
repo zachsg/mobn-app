@@ -8,6 +8,7 @@ part 'm_action_model.g.dart';
 @freezed
 class MActionModel with _$MActionModel {
   factory MActionModel({
+    @JsonKey(name: 'mate_id') required String mateID,
     required DateTime date,
     required int minutes,
     @JsonKey(name: 'habit_type') required MHabitType habitType,

@@ -20,6 +20,8 @@ MActionModel _$MActionModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MActionModel {
+  @JsonKey(name: 'mate_id')
+  String get mateID => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   int get minutes => throw _privateConstructorUsedError;
   @JsonKey(name: 'habit_type')
@@ -42,7 +44,8 @@ abstract class $MActionModelCopyWith<$Res> {
       _$MActionModelCopyWithImpl<$Res, MActionModel>;
   @useResult
   $Res call(
-      {DateTime date,
+      {@JsonKey(name: 'mate_id') String mateID,
+      DateTime date,
       int minutes,
       @JsonKey(name: 'habit_type') MHabitType habitType});
 }
@@ -62,11 +65,16 @@ class _$MActionModelCopyWithImpl<$Res, $Val extends MActionModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? mateID = null,
     Object? date = null,
     Object? minutes = null,
     Object? habitType = null,
   }) {
     return _then(_value.copyWith(
+      mateID: null == mateID
+          ? _value.mateID
+          : mateID // ignore: cast_nullable_to_non_nullable
+              as String,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -92,7 +100,8 @@ abstract class _$$MActionModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {DateTime date,
+      {@JsonKey(name: 'mate_id') String mateID,
+      DateTime date,
       int minutes,
       @JsonKey(name: 'habit_type') MHabitType habitType});
 }
@@ -110,11 +119,16 @@ class __$$MActionModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? mateID = null,
     Object? date = null,
     Object? minutes = null,
     Object? habitType = null,
   }) {
     return _then(_$MActionModelImpl(
+      mateID: null == mateID
+          ? _value.mateID
+          : mateID // ignore: cast_nullable_to_non_nullable
+              as String,
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
@@ -135,13 +149,17 @@ class __$$MActionModelImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MActionModelImpl implements _MActionModel {
   _$MActionModelImpl(
-      {required this.date,
+      {@JsonKey(name: 'mate_id') required this.mateID,
+      required this.date,
       required this.minutes,
       @JsonKey(name: 'habit_type') required this.habitType});
 
   factory _$MActionModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$MActionModelImplFromJson(json);
 
+  @override
+  @JsonKey(name: 'mate_id')
+  final String mateID;
   @override
   final DateTime date;
   @override
@@ -152,7 +170,7 @@ class _$MActionModelImpl implements _MActionModel {
 
   @override
   String toString() {
-    return 'MActionModel(date: $date, minutes: $minutes, habitType: $habitType)';
+    return 'MActionModel(mateID: $mateID, date: $date, minutes: $minutes, habitType: $habitType)';
   }
 
   @override
@@ -160,6 +178,7 @@ class _$MActionModelImpl implements _MActionModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MActionModelImpl &&
+            (identical(other.mateID, mateID) || other.mateID == mateID) &&
             (identical(other.date, date) || other.date == date) &&
             (identical(other.minutes, minutes) || other.minutes == minutes) &&
             (identical(other.habitType, habitType) ||
@@ -168,7 +187,8 @@ class _$MActionModelImpl implements _MActionModel {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, date, minutes, habitType);
+  int get hashCode =>
+      Object.hash(runtimeType, mateID, date, minutes, habitType);
 
   /// Create a copy of MActionModel
   /// with the given fields replaced by the non-null parameter values.
@@ -188,7 +208,8 @@ class _$MActionModelImpl implements _MActionModel {
 
 abstract class _MActionModel implements MActionModel {
   factory _MActionModel(
-          {required final DateTime date,
+          {@JsonKey(name: 'mate_id') required final String mateID,
+          required final DateTime date,
           required final int minutes,
           @JsonKey(name: 'habit_type') required final MHabitType habitType}) =
       _$MActionModelImpl;
@@ -196,6 +217,9 @@ abstract class _MActionModel implements MActionModel {
   factory _MActionModel.fromJson(Map<String, dynamic> json) =
       _$MActionModelImpl.fromJson;
 
+  @override
+  @JsonKey(name: 'mate_id')
+  String get mateID;
   @override
   DateTime get date;
   @override

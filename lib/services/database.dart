@@ -8,6 +8,7 @@ class Database {
 
   static const profilesCollection = 'profiles';
   static const mobsCollection = 'mobs';
+  static const daysCollection = 'days';
 
   static Future<bool> acceptTerms() async {
     final id = FirebaseAuth.instance.currentUser?.uid;
@@ -108,5 +109,34 @@ class Database {
         yield allMobs;
       }
     }
+  }
+
+  static Future<MDayModel> loadDayForDate({
+    required MMobModel mob,
+    required DateTime date,
+  }) async {
+    final today = DateTime.now();
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final m = await db
+          .collection(mobsCollection)
+          .where('habit_type', isEqualTo: mob.habitType.name)
+          .where('mate_ids', arrayContains: user.uid)
+          .get();
+
+      final day = await db
+          .collection(mobsCollection)
+          .doc(m.docs.first.id)
+          .collection(daysCollection)
+          .where('date', isGreaterThan: today.copyWith(hour: 0, minute: 0))
+          .where('date', isLessThan: today.copyWith(hour: 23, microsecond: 59))
+          .get();
+
+      if (day.docs.isNotEmpty) {
+        return MDayModel.fromJson(day.docs.first.data());
+      }
+    }
+
+    return MDayModel(date: today);
   }
 }

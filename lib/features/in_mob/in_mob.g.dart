@@ -1,24 +1,24 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'new_mob.dart';
+part of 'in_mob.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$newMobHash() => r'8d720744702d33192cfbc4649b204d35a41d5233';
+String _$inMobHash() => r'd0d9c6730ea9e743f5f70854d68fd392bda16c3b';
 
-/// See also [NewMob].
-@ProviderFor(NewMob)
-final newMobProvider = NotifierProvider<NewMob, NewMobModel>.internal(
-  NewMob.new,
-  name: r'newMobProvider',
+/// See also [InMob].
+@ProviderFor(InMob)
+final inMobProvider = AutoDisposeNotifierProvider<InMob, InMobModel>.internal(
+  InMob.new,
+  name: r'inMobProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$newMobHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$inMobHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$NewMob = Notifier<NewMobModel>;
+typedef _$InMob = AutoDisposeNotifier<InMobModel>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

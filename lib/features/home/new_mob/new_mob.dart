@@ -65,7 +65,7 @@ class NewMob extends _$NewMob {
       state = state.copyWith(
           loading: false,
           error:
-              'You\'re already in a ${goal.habitType.name.habitDoing().toLowerCase()} group');
+              'You\'re already in a ${goal.habitType.name.habitDoing().toLowerCase()} mob.');
       return;
     } else {
       goals = [...goals, goal];
@@ -75,9 +75,18 @@ class NewMob extends _$NewMob {
 
     await Database.updateProfile(updatedProfile);
 
+    final mobGoal = MMobGoalModel(
+      mateID: user.uid,
+      mateName: profile.name,
+      mateHandle: profile.handle,
+      mateAvatar: profile.avatar,
+      startDate: DateTime.now(),
+      minutes: state.minutes,
+    );
+
     final mob = MMobModel(
       mateIDs: [updatedProfile.id],
-      mates: [updatedProfile],
+      goals: [mobGoal],
       habitType: state.habitType,
     );
 

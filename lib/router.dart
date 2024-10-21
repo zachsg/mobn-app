@@ -4,6 +4,7 @@ import 'features/auth/auth_view.dart';
 import 'features/bottom_nav/bottom_nav_view.dart';
 import 'features/home/home_view.dart';
 import 'features/home/new_mob/new_mob_view.dart';
+import 'features/in_mob/in_mob_view.dart';
 import 'features/learn/learn_view.dart';
 import 'features/notifications/notifications_view.dart';
 import 'features/profile/profile_view.dart';
@@ -56,9 +57,19 @@ final router = GoRouter(
               name: NewMobView.routeName,
               builder: (context, state) {
                 final profile = state.extra as MProfileModel;
-                return NewMobView(
-                  profile: profile,
-                );
+
+                return NewMobView(profile: profile);
+              },
+            ),
+            GoRoute(
+              path: InMobView.routeName,
+              name: InMobView.routeName,
+              builder: (context, state) {
+                final extras = state.extra as Map<String, dynamic>;
+                final mob = extras['mob'] as MMobModel;
+                final profile = extras['profile'] as MProfileModel;
+
+                return InMobView(mob: mob, profile: profile);
               },
             ),
           ],

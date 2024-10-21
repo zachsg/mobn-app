@@ -110,8 +110,7 @@ class HomeViewWidget extends ConsumerWidget {
           ),
           const SizedBox(height: 4.0),
           if (hasMobs) CalendarWidget(mobs: mobs, profile: profile),
-          const SizedBox(height: 24.0),
-          const SizedBox(height: 4.0),
+          const SizedBox(height: 16.0),
           hasMobs
               ? MobsWidget(mobs: mobs, profile: profile)
               : MobsHeaderWidget(profile: profile),
@@ -125,11 +124,11 @@ class HomeViewWidget extends ConsumerWidget {
     final now = DateTime.now();
 
     switch (now.hour) {
-      case < 10:
+      case < 12:
         return 'Morning';
-      case < 16:
+      case < 17:
         return 'Afternoon';
-      case < 19:
+      case < 20:
         return 'Evening';
       default:
         return 'Night';

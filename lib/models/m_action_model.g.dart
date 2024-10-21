@@ -8,6 +8,7 @@ part of 'm_action_model.dart';
 
 _$MActionModelImpl _$$MActionModelImplFromJson(Map<String, dynamic> json) =>
     _$MActionModelImpl(
+      mateID: json['mate_id'] as String,
       date: DateTime.parse(json['date'] as String),
       minutes: (json['minutes'] as num).toInt(),
       habitType: $enumDecode(_$MHabitTypeEnumMap, json['habit_type']),
@@ -15,6 +16,7 @@ _$MActionModelImpl _$$MActionModelImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$MActionModelImplToJson(_$MActionModelImpl instance) =>
     <String, dynamic>{
+      'mate_id': instance.mateID,
       'date': instance.date.toIso8601String(),
       'minutes': instance.minutes,
       'habit_type': _$MHabitTypeEnumMap[instance.habitType]!,

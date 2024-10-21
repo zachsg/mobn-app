@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mobn/helpers/extensions.dart';
+import 'package:mobn/router.dart';
 
 import '../../helpers/constants.dart';
 import '../../models/xmodels.dart';
 import '../home/new_mob/new_mob_view.dart';
+import '../in_mob/in_mob_view.dart';
 
 class MobsWidget extends ConsumerWidget {
   const MobsWidget({super.key, required this.mobs, required this.profile});
@@ -60,7 +63,7 @@ class MobsWidget extends ConsumerWidget {
                             size: 32,
                           ),
                     title: Text(
-                      mob.habitType.name.habitDoing().capitalize(),
+                      '${mob.habitType.name.habitDoing().capitalize()} Mob',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Theme.of(context).colorScheme.surface,
                             fontWeight: FontWeight.bold,
@@ -78,7 +81,15 @@ class MobsWidget extends ConsumerWidget {
                       borderRadius: BorderRadius.all(
                           Radius.circular(cornerRadiusDefault)),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      context.pushNamed(
+                        InMobView.routeName,
+                        extra: {
+                          'mob': mob,
+                          'profile': profile,
+                        },
+                      );
+                    },
                   ),
                 ),
               ),
@@ -92,7 +103,7 @@ class MobsWidget extends ConsumerWidget {
   List<Widget> _mobMates(BuildContext context, MMobModel mob) {
     List<Widget> children = [];
 
-    for (final mate in mob.mates) {
+    for (final goal in mob.goals) {
       final child = Icon(
         Icons.face,
         color: Theme.of(context).colorScheme.surface,
