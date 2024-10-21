@@ -4,8 +4,6 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../models/xmodels.dart';
 import '../../../services/database.dart';
-import '../../mobs/mobs.dart';
-import '../../profile/profile.dart';
 import 'new_mob_model.dart';
 
 part 'new_mob.g.dart';

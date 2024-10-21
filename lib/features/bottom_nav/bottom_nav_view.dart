@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../helpers/constants.dart';
 import '../../models/xmodels.dart';
-import '../home/home.dart';
 import '../home/home_view.dart';
 import '../learn/learn_view.dart';
 import '../profile/profile.dart';
