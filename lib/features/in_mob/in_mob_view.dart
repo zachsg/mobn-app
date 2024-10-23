@@ -25,7 +25,6 @@ class InMobView extends ConsumerStatefulWidget {
 class _InMobViewState extends ConsumerState<InMobView> {
   late PageController _pageController;
   int currentPageIndex = 0;
-  bool goalMet = false;
 
   @override
   void initState() {
@@ -111,7 +110,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
                         crossAxisAlignment: CrossAxisAlignment.baseline,
                         textBaseline: TextBaseline.alphabetic,
                         children: [
-                          goalMet
+                          timeRemaining() <= 0
                               ? Icon(
                                   successIcon,
                                   color: Theme.of(context).colorScheme.primary,
@@ -173,15 +172,15 @@ class _InMobViewState extends ConsumerState<InMobView> {
                 },
               );
             },
-            label: Text('${widget.mob.habitType.name.capitalize()} for:'),
+            label: Text(widget.mob.habitType.name.capitalize()),
           ),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const SizedBox(width: 8.0),
+              const SizedBox(width: 12.0),
               Container(
-                height: 72.0,
-                width: 64.0,
+                height: 80.0,
+                width: 80.0,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(12.0)),
                   color: Theme.of(context).colorScheme.primaryContainer,
@@ -213,6 +212,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
                                       .bodyLarge
                                       ?.copyWith(fontWeight: FontWeight.bold),
                                 ),
+                                const SizedBox(width: 2.0),
                                 Text(
                                   'min',
                                   style: Theme.of(context).textTheme.labelSmall,
@@ -251,10 +251,6 @@ class _InMobViewState extends ConsumerState<InMobView> {
     for (final action in ref.read(inMobProvider).day.actions) {
       totalActionTime += action.minutes;
     }
-
-    setState(() {
-      goalMet = totalActionTime >= totalGoalTime;
-    });
 
     return totalGoalTime - totalActionTime;
   }
