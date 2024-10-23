@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../models/xmodels.dart';
@@ -20,5 +19,9 @@ class InMob extends _$InMob {
     final day = await Database.loadDayForDate(mob: mob, date: date);
 
     state = state.copyWith(day: day, loading: false);
+  }
+
+  void setMinutes(int minutes) {
+    state = state.copyWith(minutes: minutes);
   }
 }

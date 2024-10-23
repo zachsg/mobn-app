@@ -23,6 +23,7 @@ mixin _$InMobModel {
   @JsonKey(name: 'day_requested')
   DateTime get dayRequested => throw _privateConstructorUsedError;
   MDayModel get day => throw _privateConstructorUsedError;
+  int get minutes => throw _privateConstructorUsedError;
   bool get loading => throw _privateConstructorUsedError;
   String? get error => throw _privateConstructorUsedError;
 
@@ -45,6 +46,7 @@ abstract class $InMobModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'day_requested') DateTime dayRequested,
       MDayModel day,
+      int minutes,
       bool loading,
       String? error});
 
@@ -68,6 +70,7 @@ class _$InMobModelCopyWithImpl<$Res, $Val extends InMobModel>
   $Res call({
     Object? dayRequested = null,
     Object? day = null,
+    Object? minutes = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -80,6 +83,10 @@ class _$InMobModelCopyWithImpl<$Res, $Val extends InMobModel>
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
               as MDayModel,
+      minutes: null == minutes
+          ? _value.minutes
+          : minutes // ignore: cast_nullable_to_non_nullable
+              as int,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -113,6 +120,7 @@ abstract class _$$InMobModelImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'day_requested') DateTime dayRequested,
       MDayModel day,
+      int minutes,
       bool loading,
       String? error});
 
@@ -135,6 +143,7 @@ class __$$InMobModelImplCopyWithImpl<$Res>
   $Res call({
     Object? dayRequested = null,
     Object? day = null,
+    Object? minutes = null,
     Object? loading = null,
     Object? error = freezed,
   }) {
@@ -147,6 +156,10 @@ class __$$InMobModelImplCopyWithImpl<$Res>
           ? _value.day
           : day // ignore: cast_nullable_to_non_nullable
               as MDayModel,
+      minutes: null == minutes
+          ? _value.minutes
+          : minutes // ignore: cast_nullable_to_non_nullable
+              as int,
       loading: null == loading
           ? _value.loading
           : loading // ignore: cast_nullable_to_non_nullable
@@ -165,6 +178,7 @@ class _$InMobModelImpl implements _InMobModel {
   _$InMobModelImpl(
       {@JsonKey(name: 'day_requested') required this.dayRequested,
       required this.day,
+      this.minutes = 5,
       this.loading = false,
       this.error});
 
@@ -178,13 +192,16 @@ class _$InMobModelImpl implements _InMobModel {
   final MDayModel day;
   @override
   @JsonKey()
+  final int minutes;
+  @override
+  @JsonKey()
   final bool loading;
   @override
   final String? error;
 
   @override
   String toString() {
-    return 'InMobModel(dayRequested: $dayRequested, day: $day, loading: $loading, error: $error)';
+    return 'InMobModel(dayRequested: $dayRequested, day: $day, minutes: $minutes, loading: $loading, error: $error)';
   }
 
   @override
@@ -195,6 +212,7 @@ class _$InMobModelImpl implements _InMobModel {
             (identical(other.dayRequested, dayRequested) ||
                 other.dayRequested == dayRequested) &&
             (identical(other.day, day) || other.day == day) &&
+            (identical(other.minutes, minutes) || other.minutes == minutes) &&
             (identical(other.loading, loading) || other.loading == loading) &&
             (identical(other.error, error) || other.error == error));
   }
@@ -202,7 +220,7 @@ class _$InMobModelImpl implements _InMobModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, dayRequested, day, loading, error);
+      Object.hash(runtimeType, dayRequested, day, minutes, loading, error);
 
   /// Create a copy of InMobModel
   /// with the given fields replaced by the non-null parameter values.
@@ -224,6 +242,7 @@ abstract class _InMobModel implements InMobModel {
   factory _InMobModel(
       {@JsonKey(name: 'day_requested') required final DateTime dayRequested,
       required final MDayModel day,
+      final int minutes,
       final bool loading,
       final String? error}) = _$InMobModelImpl;
 
@@ -235,6 +254,8 @@ abstract class _InMobModel implements InMobModel {
   DateTime get dayRequested;
   @override
   MDayModel get day;
+  @override
+  int get minutes;
   @override
   bool get loading;
   @override

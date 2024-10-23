@@ -10,6 +10,20 @@ class Database {
   static const mobsCollection = 'mobs';
   static const daysCollection = 'days';
 
+  static Future<bool> validateHandle(String handle) async {
+    final profilesJson = await db.collection(profilesCollection).get();
+
+    for (final profileJson in profilesJson.docs) {
+      final profile = MProfileModel.fromJson(profileJson.data());
+
+      if (profile.handle == handle) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   static Future<bool> acceptTerms() async {
     final id = FirebaseAuth.instance.currentUser?.uid;
 
@@ -66,6 +80,15 @@ class Database {
         )
         .snapshots()
         .map((snapshot) => snapshot.data()!);
+  }
+
+  static Future<bool> createProfile(MProfileModel profile) async {
+    try {
+      db.collection(profilesCollection).doc(profile.id).set(profile.toJson());
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   static Future<bool> updateProfile(MProfileModel profile) async {
@@ -128,8 +151,12 @@ class Database {
           .collection(mobsCollection)
           .doc(m.docs.first.id)
           .collection(daysCollection)
-          .where('date', isGreaterThan: today.copyWith(hour: 0, minute: 0))
-          .where('date', isLessThan: today.copyWith(hour: 23, microsecond: 59))
+          .where('date',
+              isGreaterThan:
+                  today.copyWith(hour: 0, minute: 0).toIso8601String())
+          .where('date',
+              isLessThan:
+                  today.copyWith(hour: 23, minute: 59).toIso8601String())
           .get();
 
       if (day.docs.isNotEmpty) {
@@ -138,5 +165,54 @@ class Database {
     }
 
     return MDayModel(date: today);
+  }
+
+  static Future<bool> saveAction({
+    required MMobModel mob,
+    required MProfileModel profileToSave,
+    required MDayModel dayToSave,
+  }) async {
+    final today = DateTime.now();
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      final m = await db
+          .collection(mobsCollection)
+          .where('habit_type', isEqualTo: mob.habitType.name)
+          .where('mate_ids', arrayContains: user.uid)
+          .get();
+
+      final day = await db
+          .collection(mobsCollection)
+          .doc(m.docs.first.id)
+          .collection(daysCollection)
+          .where('date',
+              isGreaterThan:
+                  today.copyWith(hour: 0, minute: 0).toIso8601String())
+          .where('date',
+              isLessThan:
+                  today.copyWith(hour: 23, minute: 59).toIso8601String())
+          .get();
+
+      await updateProfile(profileToSave);
+
+      if (day.docs.isNotEmpty) {
+        await db
+            .collection(mobsCollection)
+            .doc(m.docs.first.id)
+            .collection(daysCollection)
+            .doc(day.docs.first.id)
+            .update(dayToSave.toJson());
+      } else {
+        await db
+            .collection(mobsCollection)
+            .doc(m.docs.first.id)
+            .collection(daysCollection)
+            .add(dayToSave.toJson());
+      }
+
+      return true;
+    }
+
+    return false;
   }
 }

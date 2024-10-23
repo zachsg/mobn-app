@@ -6,7 +6,7 @@ part of 'in_mob.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$inMobHash() => r'd0d9c6730ea9e743f5f70854d68fd392bda16c3b';
+String _$inMobHash() => r'30aab799f6ec719a9c839f859db5eb58c12721a1';
 
 /// See also [InMob].
 @ProviderFor(InMob)
@@ -21,4 +21,4 @@ final inMobProvider = AutoDisposeNotifierProvider<InMob, InMobModel>.internal(
 
 typedef _$InMob = AutoDisposeNotifier<InMobModel>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

@@ -1,24 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'home.dart';
+part of 'profile_setup.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeHash() => r'71a715fe1ee8544bf9573adc9ac67c955df9c903';
+String _$profileSetupHash() => r'6a14af8bddf2f989565182a6e729771a150da40c';
 
-/// See also [Home].
-@ProviderFor(Home)
-final homeProvider = NotifierProvider<Home, HomeModel>.internal(
-  Home.new,
-  name: r'homeProvider',
+/// See also [ProfileSetup].
+@ProviderFor(ProfileSetup)
+final profileSetupProvider =
+    AutoDisposeNotifierProvider<ProfileSetup, ProfileSetupModel>.internal(
+  ProfileSetup.new,
+  name: r'profileSetupProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$homeHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$profileSetupHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$Home = Notifier<HomeModel>;
+typedef _$ProfileSetup = AutoDisposeNotifier<ProfileSetupModel>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

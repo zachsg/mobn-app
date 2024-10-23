@@ -8,8 +8,10 @@ import 'features/in_mob/in_mob_view.dart';
 import 'features/learn/learn_view.dart';
 import 'features/notifications/notifications_view.dart';
 import 'features/profile/profile_view.dart';
+import 'features/profile_setup/profile_setup_view.dart';
 import 'features/settings/settings_view.dart';
 import 'features/splash/splash_view.dart';
+import 'features/take_action/take_action_view.dart';
 import 'models/xmodels.dart';
 
 final router = GoRouter(
@@ -30,6 +32,11 @@ final router = GoRouter(
       name: BottomNavView.routeName,
       builder: (context, state) => const BottomNavView(),
       routes: [
+        GoRoute(
+          path: ProfileSetupView.routeName,
+          name: ProfileSetupView.routeName,
+          builder: (context, state) => const ProfileSetupView(),
+        ),
         GoRoute(
           path: HomeView.routeName,
           name: HomeView.routeName,
@@ -71,6 +78,19 @@ final router = GoRouter(
 
                 return InMobView(mob: mob, profile: profile);
               },
+              routes: [
+                GoRoute(
+                  path: TakeActionView.routeName,
+                  name: TakeActionView.routeName,
+                  builder: (context, state) {
+                    final extras = state.extra as Map<String, dynamic>;
+                    final mob = extras['mob'] as MMobModel;
+                    final profile = extras['profile'] as MProfileModel;
+
+                    return TakeActionView(mob: mob, profile: profile);
+                  },
+                ),
+              ],
             ),
           ],
         ),

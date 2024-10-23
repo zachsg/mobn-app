@@ -22,7 +22,7 @@ class CalendarItemPartDoneWidget extends StatelessWidget {
       color: partDoneColor,
       isFilled: true,
       showLabel: showLabel,
-      isToday: false,
+      isToday: isToday,
       size: size,
     );
   }

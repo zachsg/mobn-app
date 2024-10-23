@@ -18,5 +18,5 @@ _$MDayModelImpl _$$MDayModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$MDayModelImplToJson(_$MDayModelImpl instance) =>
     <String, dynamic>{
       'date': instance.date.toIso8601String(),
-      'actions': instance.actions,
+      'actions': instance.actions.map((e) => e.toJson()).toList(),
     };

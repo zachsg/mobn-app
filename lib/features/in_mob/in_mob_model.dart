@@ -10,6 +10,7 @@ class InMobModel with _$InMobModel {
   factory InMobModel({
     @JsonKey(name: 'day_requested') required DateTime dayRequested,
     required MDayModel day,
+    @Default(5) int minutes,
     @Default(false) bool loading,
     String? error,
   }) = _InMobModel;

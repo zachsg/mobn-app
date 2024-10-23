@@ -113,7 +113,8 @@ class __$$MDayModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$MDayModelImpl implements _MDayModel {
   _$MDayModelImpl(
       {required this.date, final List<MActionModel> actions = const []})

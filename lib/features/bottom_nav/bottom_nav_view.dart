@@ -6,6 +6,7 @@ import '../../models/xmodels.dart';
 import '../home/home_view.dart';
 import '../learn/learn_view.dart';
 import '../profile/profile.dart';
+import '../profile_setup/profile_setup_view.dart';
 import '../settings/settings_view.dart';
 import '../widgets/xwidgets.dart';
 
@@ -19,7 +20,7 @@ class BottomNavView extends ConsumerWidget {
     final profileStream = ref.watch(profileStreamProvider);
 
     return switch (profileStream) {
-      AsyncValue(:final error?) => Text('Error: $error'),
+      AsyncValue(:final error?) => ProfileSetupView(),
       AsyncValue(:final valueOrNull?) =>
         BottomNavViewWidget(profile: valueOrNull),
       _ => Scaffold(

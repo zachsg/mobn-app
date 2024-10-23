@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobn/features/home/widgets/calendar_item_done_widget.dart';
 import 'package:mobn/features/home/widgets/calendar_item_not_done_widget.dart';
+import 'package:mobn/features/home/widgets/calendar_item_part_done_widget.dart';
 import 'package:mobn/helpers/extensions.dart';
 
 import '../../../helpers/constants.dart';
@@ -13,11 +15,13 @@ class CalendarMonthWidget extends StatelessWidget {
     required this.date,
     required this.startDate,
     required this.profile,
+    required this.habitType,
   });
 
   final DateTime date;
   final DateTime startDate;
   final MProfileModel profile;
+  final MHabitType habitType;
 
   @override
   Widget build(BuildContext context) {
@@ -86,9 +90,10 @@ class CalendarMonthWidget extends StatelessWidget {
                           if (index == today.day + 1 &&
                               date.month == today.month) {
                             // It's today
-                            // TODO: add logic to color the day dot based on actions
-                            return CalendarItemFutureWidget(
-                                showLabel: false, isToday: true);
+                            return _calendarDotForDate(
+                              date: DateTime.now(),
+                              isToday: true,
+                            );
                           } else if ((index > today.day &&
                                   date.month == today.month) ||
                               date
@@ -100,9 +105,12 @@ class CalendarMonthWidget extends StatelessWidget {
                             // It's the future
                             return CalendarItemFutureWidget(showLabel: false);
                           } else {
+                            final d = date
+                                .copyWith(day: 1, minute: 0)
+                                .add(Duration(days: index - count));
+
                             // It's a day in the past
-                            // TODO: add logic to color the day dot based on actions
-                            return CalendarItemNotDoneWidget(showLabel: false);
+                            return _calendarDotForDate(date: d);
                           }
                         } else {
                           extraCount += 1;
@@ -149,6 +157,49 @@ class CalendarMonthWidget extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Widget _calendarDotForDate({required DateTime date, bool isToday = false}) {
+    int timeSpent = _timeSpentOnDate(date);
+
+    final goalMinutes = _goalMinutes();
+
+    if (timeSpent >= goalMinutes) {
+      return CalendarItemDoneWidget(
+        showLabel: false,
+        isToday: isToday,
+      );
+    } else if (timeSpent > 0) {
+      return CalendarItemPartDoneWidget(
+        showLabel: false,
+        isToday: isToday,
+      );
+    } else {
+      return CalendarItemFutureWidget(
+        showLabel: false,
+        isToday: isToday,
+      );
+    }
+  }
+
+  int _goalMinutes() {
+    return profile.goals
+        .firstWhere((goal) => goal.habitType == habitType)
+        .minutes;
+  }
+
+  int _timeSpentOnDate(DateTime date) {
+    int timeSpent = 0;
+
+    for (final action
+        in profile.actions.where((action) => action.habitType == habitType)) {
+      if (action.date.isAfter(date.copyWith(hour: 0, minute: 0)) &&
+          action.date.isBefore(date.copyWith(hour: 23, minute: 59))) {
+        timeSpent += action.minutes;
+      }
+    }
+
+    return timeSpent;
   }
 
   int _extraItemCount(DateTime firstDayOfMonth) {

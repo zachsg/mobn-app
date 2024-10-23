@@ -7,6 +7,7 @@ part 'm_day_model.g.dart';
 
 @freezed
 class MDayModel with _$MDayModel {
+  @JsonSerializable(explicitToJson: true)
   factory MDayModel({
     required DateTime date,
     @Default([]) List<MActionModel> actions,

@@ -14,6 +14,10 @@ class Profile extends _$Profile {
         loading: false,
       );
 
+  Future<void> loadProfile() async {
+    await Database.loadProfile();
+  }
+
   Future<bool> updateProfile(MProfileModel profile) async {
     return await Database.updateProfile(profile);
   }

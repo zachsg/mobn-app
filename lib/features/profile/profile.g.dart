@@ -20,8 +20,10 @@ final profileStreamProvider = AutoDisposeStreamProvider<MProfileModel>.internal(
   allTransitiveDependencies: null,
 );
 
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
 typedef ProfileStreamRef = AutoDisposeStreamProviderRef<MProfileModel>;
-String _$profileHash() => r'dd3f043b170b94886a56710c5f13a66b2e0b046d';
+String _$profileHash() => r'4203056971b31501e46135c782dd877f42695810';
 
 /// See also [Profile].
 @ProviderFor(Profile)
@@ -36,4 +38,4 @@ final profileProvider = NotifierProvider<Profile, ProfileModel>.internal(
 
 typedef _$Profile = Notifier<ProfileModel>;
 // ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member
+// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

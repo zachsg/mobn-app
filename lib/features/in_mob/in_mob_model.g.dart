@@ -10,6 +10,7 @@ _$InMobModelImpl _$$InMobModelImplFromJson(Map<String, dynamic> json) =>
     _$InMobModelImpl(
       dayRequested: DateTime.parse(json['day_requested'] as String),
       day: MDayModel.fromJson(json['day'] as Map<String, dynamic>),
+      minutes: (json['minutes'] as num?)?.toInt() ?? 5,
       loading: json['loading'] as bool? ?? false,
       error: json['error'] as String?,
     );
@@ -18,6 +19,7 @@ Map<String, dynamic> _$$InMobModelImplToJson(_$InMobModelImpl instance) =>
     <String, dynamic>{
       'day_requested': instance.dayRequested.toIso8601String(),
       'day': instance.day,
+      'minutes': instance.minutes,
       'loading': instance.loading,
       'error': instance.error,
     };

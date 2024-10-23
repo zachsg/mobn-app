@@ -71,6 +71,7 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
                 date: date,
                 startDate: startDate,
                 profile: widget.profile,
+                habitType: mobTypeSelected,
               );
             },
           ),
