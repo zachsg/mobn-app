@@ -62,7 +62,7 @@ class NewMobView extends ConsumerWidget {
                   Row(
                     children: [
                       Text(
-                        'Habit type:',
+                        'Habit:',
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                       const SizedBox(width: 8.0),

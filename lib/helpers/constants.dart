@@ -55,6 +55,7 @@ const notificationsIcon = Icons.notifications_outlined;
 // Mobs
 const mobsLabel = 'Mobs';
 const mobsIcon = Icons.groups;
+const activityIcon = Icons.description;
 
 // Learn
 const learnLabel = 'Learn';

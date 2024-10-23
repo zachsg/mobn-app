@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mobn/features/in_mob/widgets/activity_widget.dart';
 import 'package:mobn/helpers/extensions.dart';
 
 import '../../helpers/constants.dart';
@@ -63,6 +64,25 @@ class _InMobViewState extends ConsumerState<InMobView> {
     return Scaffold(
       appBar: AppBar(
         title: Text('${widget.mob.habitType.name.habitDoing()} Mob'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showModalBottomSheet<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return ActivityWidget(mob: widget.mob);
+                },
+              );
+            },
+            icon: Icon(activityIcon),
+          ),
+          IconButton(
+            onPressed: () {
+              // TODO: Go to mob settings page
+            },
+            icon: Icon(settingsIcon),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(mainPadding),
@@ -137,46 +157,6 @@ class _InMobViewState extends ConsumerState<InMobView> {
                   Row(
                     children: _mobMates(),
                   ),
-                  if (provider.day.actions.isNotEmpty)
-                    Expanded(
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 16.0),
-                          Row(
-                            children: [
-                              Text(
-                                'Activity',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                              itemCount: provider.day.actions.length,
-                              itemBuilder: (context, index) {
-                                final action = provider.day.actions[index];
-                                final mateName = widget.mob.goals
-                                    .firstWhere(
-                                        (goal) => goal.mateID == action.mateID)
-                                    .mateName;
-
-                                return ListTile(
-                                  dense: true,
-                                  visualDensity: VisualDensity.compact,
-                                  leading: Icon(Icons.circle, size: 10),
-                                  title: Text(
-                                      '$mateName ${widget.mob.habitType.name.habitDid().toLowerCase()} for ${action.minutes} minutes.'),
-                                  subtitle: Text(action.date.friendlyTime()),
-                                );
-                              },
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
                 ],
               ),
       ),
