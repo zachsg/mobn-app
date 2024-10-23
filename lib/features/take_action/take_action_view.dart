@@ -54,7 +54,7 @@ class TakeActionView extends ConsumerWidget {
               },
             ),
             const SizedBox(height: 16.0),
-            FilledButton(
+            ElevatedButton(
               onPressed: () {
                 WakelockPlus.disable();
                 ref.read(takeActionProvider.notifier).setPaused(true);

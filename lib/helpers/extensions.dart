@@ -65,10 +65,17 @@ extension StringExtension on String {
         return 'Drawing';
       case 'exercise':
         return 'Exercising';
+      case 'journal':
+        return 'Journaling';
       case 'meditate':
         return 'Meditating';
+      case 'paint':
+        return 'Painting';
       case 'read':
         return 'Reading';
+      case 'write':
+        return 'Writing';
+
       default:
         return 'Growing';
     }
@@ -82,10 +89,16 @@ extension StringExtension on String {
         return 'Drew';
       case 'exercise':
         return 'Exercised';
+      case 'journal':
+        return 'Journaled';
       case 'meditate':
         return 'Meditated';
+      case 'paint':
+        return 'Painted';
       case 'read':
         return 'Read';
+      case 'write':
+        return 'Wrote';
       default:
         return 'Grew';
     }
