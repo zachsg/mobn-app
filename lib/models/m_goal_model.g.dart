@@ -21,6 +21,12 @@ Map<String, dynamic> _$$MGoalModelImplToJson(_$MGoalModelImpl instance) =>
     };
 
 const _$MHabitTypeEnumMap = {
+  MHabitType.cook: 'cook',
+  MHabitType.draw: 'draw',
+  MHabitType.exercise: 'exercise',
+  MHabitType.journal: 'journal',
   MHabitType.meditate: 'meditate',
+  MHabitType.paint: 'paint',
   MHabitType.read: 'read',
+  MHabitType.write: 'write',
 };

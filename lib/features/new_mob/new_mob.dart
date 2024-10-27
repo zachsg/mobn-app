@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:mobn/helpers/extensions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../../models/xmodels.dart';
-import '../../../services/database.dart';
+import '../../models/xmodels.dart';
+import '../../services/database.dart';
 import 'new_mob_model.dart';
 
 part 'new_mob.g.dart';

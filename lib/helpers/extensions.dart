@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:mobn/helpers/constants.dart';
 
+import '../models/xmodels.dart';
 import 'app_colors.dart';
 
 extension DateTimeExtension on DateTime {
+  bool isToday() {
+    final now = DateTime.now();
+    return now.day == day && now.month == month && now.year == year;
+  }
+
   String friendlyTime() {
     final DateFormat formatter = DateFormat('h:mm a');
     return formatter.format(this);
@@ -52,6 +59,29 @@ extension DateTimeExtension on DateTime {
         return 'S';
       default:
         return '';
+    }
+  }
+}
+
+extension HabitTypeExtension on MHabitType {
+  IconData toIcon() {
+    switch (this) {
+      case MHabitType.cook:
+        return cookIcon;
+      case MHabitType.draw:
+        return drawIcon;
+      case MHabitType.exercise:
+        return exerciseIcon;
+      case MHabitType.journal:
+        return journalIcon;
+      case MHabitType.meditate:
+        return meditateIcon;
+      case MHabitType.paint:
+        return paintIcon;
+      case MHabitType.read:
+        return readIcon;
+      case MHabitType.write:
+        return writeIcon;
     }
   }
 }

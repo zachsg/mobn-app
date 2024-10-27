@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../models/xmodels.dart';
+import '../../models/xmodels.dart';
 
 part 'new_mob_model.freezed.dart';
 part 'new_mob_model.g.dart';

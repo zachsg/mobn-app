@@ -6,7 +6,7 @@ part of 'mobs.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$mobsStreamHash() => r'4d30c42387d205c5ee11ec2415f7b5d520af724e';
+String _$mobsStreamHash() => r'e4f09b41c417812ee889bbf991144616b5468564';
 
 /// See also [mobsStream].
 @ProviderFor(mobsStream)

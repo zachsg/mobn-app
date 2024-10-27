@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:mobn/features/home/widgets/calendar_item_done_widget.dart';
-import 'package:mobn/features/home/widgets/calendar_item_not_done_widget.dart';
-import 'package:mobn/features/home/widgets/calendar_item_part_done_widget.dart';
+import 'package:mobn/features/home/widgets/xwidgets.dart';
 import 'package:mobn/helpers/extensions.dart';
 
 import '../../../helpers/constants.dart';
 import '../../../models/xmodels.dart';
-import 'calendar_item_future_widget.dart';
 
 class CalendarMonthWidget extends StatelessWidget {
   const CalendarMonthWidget({
@@ -55,7 +52,7 @@ class CalendarMonthWidget extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(cornerRadiusDefault),
             ),
-            color: Theme.of(context).colorScheme.onSurface,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
             margin: EdgeInsets.all(0),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -87,30 +84,23 @@ class CalendarMonthWidget extends StatelessWidget {
                           count += 1;
                           return const SizedBox();
                         } else if (index < lastDayOfMonth.day + count) {
-                          if (index == today.day + 1 &&
-                              date.month == today.month) {
-                            // It's today
+                          final d = date
+                              .copyWith(day: 1, minute: 0)
+                              .add(Duration(days: index - count));
+
+                          if (d.isToday()) {
                             return _calendarDotForDate(
+                              startDate: startDate,
                               date: DateTime.now(),
                               isToday: true,
                             );
-                          } else if ((index > today.day &&
-                                  date.month == today.month) ||
-                              date
-                                  .add(Duration(
-                                      days: index +
-                                          1 -
-                                          _extraItemCount(firstDayOfMonth)))
-                                  .isBefore(startDate)) {
-                            // It's the future
+                          } else if (d.day > today.day) {
                             return CalendarItemFutureWidget(showLabel: false);
                           } else {
-                            final d = date
-                                .copyWith(day: 1, minute: 0)
-                                .add(Duration(days: index - count));
-
-                            // It's a day in the past
-                            return _calendarDotForDate(date: d);
+                            return _calendarDotForDate(
+                              startDate: startDate,
+                              date: d,
+                            );
                           }
                         } else {
                           extraCount += 1;
@@ -159,7 +149,11 @@ class CalendarMonthWidget extends StatelessWidget {
     );
   }
 
-  Widget _calendarDotForDate({required DateTime date, bool isToday = false}) {
+  Widget _calendarDotForDate({
+    required DateTime startDate,
+    required DateTime date,
+    bool isToday = false,
+  }) {
     int timeSpent = _timeSpentOnDate(date);
 
     final goalMinutes = _goalMinutes();
@@ -175,10 +169,16 @@ class CalendarMonthWidget extends StatelessWidget {
         isToday: isToday,
       );
     } else {
-      return CalendarItemFutureWidget(
-        showLabel: false,
-        isToday: isToday,
-      );
+      final isBeforeStart = date.isBefore(startDate.add(Duration(days: -1)));
+
+      if (timeSpent == 0 && !isToday && !isBeforeStart) {
+        return CalendarItemNotDoneWidget(showLabel: false, isToday: isToday);
+      } else {
+        return CalendarItemFutureWidget(
+          showLabel: false,
+          isToday: isToday,
+        );
+      }
     }
   }
 
@@ -191,10 +191,14 @@ class CalendarMonthWidget extends StatelessWidget {
   int _timeSpentOnDate(DateTime date) {
     int timeSpent = 0;
 
-    for (final action
-        in profile.actions.where((action) => action.habitType == habitType)) {
-      if (action.date.isAfter(date.copyWith(hour: 0, minute: 0)) &&
-          action.date.isBefore(date.copyWith(hour: 23, minute: 59))) {
+    final startOfDay = date.copyWith(hour: 0, minute: 0, second: 0);
+    final endOfDay = date.copyWith(hour: 23, minute: 59, second: 59);
+
+    final actions =
+        profile.actions.where((action) => action.habitType == habitType);
+
+    for (final action in actions) {
+      if (action.date.isAfter(startOfDay) && action.date.isBefore(endOfDay)) {
         timeSpent += action.minutes;
       }
     }

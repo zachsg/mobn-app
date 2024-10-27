@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobn/helpers/extensions.dart';
 
-import '../../../helpers/constants.dart';
-import '../../../models/xmodels.dart';
+import '../../helpers/constants.dart';
+import '../../models/xmodels.dart';
 import 'new_mob.dart';
 
 class NewMobView extends ConsumerWidget {
@@ -43,7 +43,6 @@ class NewMobView extends ConsumerWidget {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         newMobTitleLabel,
@@ -52,13 +51,9 @@ class NewMobView extends ConsumerWidget {
                             .headlineMedium
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
-                      IconButton(
-                        icon: Icon(closeIcon),
-                        onPressed: () => Navigator.pop(context),
-                      ),
                     ],
                   ),
-                  const SizedBox(height: 8.0),
+                  const SizedBox(height: 16.0),
                   Row(
                     children: [
                       Text(

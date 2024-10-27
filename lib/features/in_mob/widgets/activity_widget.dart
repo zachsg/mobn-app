@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobn/helpers/extensions.dart';
 
-import '../../../helpers/constants.dart';
 import '../../../models/xmodels.dart';
 import '../in_mob.dart';
 
@@ -39,7 +38,6 @@ class ActivityWidget extends ConsumerWidget {
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Activity',
@@ -47,10 +45,6 @@ class ActivityWidget extends ConsumerWidget {
                             .textTheme
                             .headlineMedium
                             ?.copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      IconButton(
-                        icon: Icon(closeIcon),
-                        onPressed: () => Navigator.pop(context),
                       ),
                     ],
                   ),

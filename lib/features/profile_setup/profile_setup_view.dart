@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:mobn/features/home/home_view.dart';
 import 'package:mobn/helpers/extensions.dart';
 
 import '../../helpers/constants.dart';
@@ -77,6 +76,11 @@ class _ProfileSetupViewState extends ConsumerState<ProfileSetupView> {
                 child: provider.loading
                     ? CircularProgressIndicator()
                     : Text(saveLabel),
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: ref.read(profileSetupProvider.notifier).signOut,
+                child: const Text('Sign Out'),
               ),
             ],
           ),

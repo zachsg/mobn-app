@@ -57,6 +57,16 @@ const mobsLabel = 'Mobs';
 const mobsIcon = Icons.groups;
 const activityIcon = Icons.description;
 
+// Habits
+const cookIcon = Icons.restaurant;
+const drawIcon = Icons.gesture;
+const exerciseIcon = Icons.directions_run;
+const journalIcon = Icons.edit_note;
+const meditateIcon = Icons.self_improvement;
+const paintIcon = Icons.brush;
+const readIcon = Icons.local_library;
+const writeIcon = Icons.edit_document;
+
 // Learn
 const learnLabel = 'Learn';
 const learnIcon = Icons.school;

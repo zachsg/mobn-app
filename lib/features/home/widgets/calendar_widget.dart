@@ -47,6 +47,7 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
           Padding(
             padding: const EdgeInsets.only(bottom: 4.0),
             child: SegmentedButton(
+              showSelectedIcon: false,
               segments: _mobSelectorChildren(),
               selected: {mobTypeSelected},
               onSelectionChanged: (type) {
@@ -107,7 +108,8 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
     for (final mob in widget.mobs) {
       final child = ButtonSegment<MHabitType>(
         value: mob.habitType,
-        label: Text(mob.habitType.name.habitDoing()),
+        icon: Icon(mob.habitType.toIcon()),
+        tooltip: mob.habitType.name.capitalize(),
       );
 
       children = [...children, child];

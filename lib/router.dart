@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'features/auth/auth_view.dart';
 import 'features/bottom_nav/bottom_nav_view.dart';
 import 'features/home/home_view.dart';
-import 'features/home/new_mob/new_mob_view.dart';
+import 'features/new_mob/new_mob_view.dart';
 import 'features/in_mob/in_mob_view.dart';
 import 'features/learn/learn_view.dart';
 import 'features/notifications/notifications_view.dart';

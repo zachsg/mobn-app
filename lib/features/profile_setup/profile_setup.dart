@@ -20,7 +20,7 @@ class ProfileSetup extends _$ProfileSetup {
   }
 
   void setHandle(String handle) {
-    state = state.copyWith(handle: handle);
+    state = state.copyWith(handle: handle.replaceAll(' ', '').toLowerCase());
   }
 
   void setAvatar() {
@@ -73,6 +73,7 @@ class ProfileSetup extends _$ProfileSetup {
       if (user != null) {
         final profile = MProfileModel(
           id: user.uid,
+          email: user.email ?? '',
           name: state.name,
           handle: state.handle,
         );
@@ -82,5 +83,9 @@ class ProfileSetup extends _$ProfileSetup {
 
       state = state.copyWith(loading: false);
     }
+  }
+
+  Future<void> signOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

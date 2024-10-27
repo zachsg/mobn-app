@@ -129,6 +129,7 @@ class Database {
         final mob = doc.data();
 
         allMobs = [...allMobs, mob];
+
         yield allMobs;
       }
     }

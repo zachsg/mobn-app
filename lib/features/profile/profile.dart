@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../models/xmodels.dart';
@@ -32,7 +33,7 @@ class Profile extends _$Profile {
 }
 
 @riverpod
-Stream<MProfileModel> profileStream(ProfileStreamRef ref) {
+Stream<MProfileModel> profileStream(Ref ref) {
   final user = FirebaseAuth.instance.currentUser;
   if (user == null) {
     throw AssertionError('User can\'t be null');
