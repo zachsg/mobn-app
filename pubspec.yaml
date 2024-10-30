@@ -2,7 +2,7 @@ name: mobn
 description: Mobn team habits
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 0.0.6+54
+version: 0.0.6+56
 
 environment:
   sdk: ^3.5.4
@@ -42,10 +42,10 @@ dev_dependencies:
     sdk: flutter
 
   flutter_lints: ^5.0.0
-  riverpod_generator: ^2.6.1
+  riverpod_generator: ^2.6.2
   build_runner: ^2.4.13
-  custom_lint: ^0.6.8
-  riverpod_lint: ^2.6.1
+  custom_lint: ^0.7.0
+  riverpod_lint: ^2.6.2
   json_serializable: ^6.8.0
 
 flutter:

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 // Colors
 const primaryColor = Color.fromRGBO(38, 5, 95, 1);
-const backgroundColor = Color.fromRGBO(250, 247, 237, 1);
+const backgroundColor = Color.fromRGBO(250, 240, 230, 1);
+const backgroundDarkColor = Color.fromRGBO(188, 152, 126, 1);
 const doneColor = Colors.green;
 const partDoneColor = Colors.orange;
 const notDoneColor = Colors.red;

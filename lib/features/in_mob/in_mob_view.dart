@@ -259,7 +259,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(50),
                       ),
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
@@ -439,7 +439,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
           (emptyTime / totalGoalTime * 100).round().toInt();
 
       final section = PieChartSectionData(
-        color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.2),
+        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
         value: emptyTime,
         title: '',
         radius: 80,

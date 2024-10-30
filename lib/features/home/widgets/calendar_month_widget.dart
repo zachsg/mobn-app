@@ -52,7 +52,7 @@ class CalendarMonthWidget extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(cornerRadiusDefault),
             ),
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
+            color: Theme.of(context).colorScheme.onSurface,
             margin: EdgeInsets.all(0),
             child: Padding(
               padding: const EdgeInsets.all(20.0),

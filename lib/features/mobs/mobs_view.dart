@@ -71,7 +71,7 @@ class MobsWidget extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.surface,
                       size: 32,
                     ),
-                    tileColor: Theme.of(context).colorScheme.onSurfaceVariant,
+                    tileColor: Theme.of(context).colorScheme.onSurface,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
                           Radius.circular(cornerRadiusDefault)),
