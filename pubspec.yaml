@@ -2,7 +2,7 @@ name: mobn
 description: Mobn team habits
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-version: 0.0.7+58
+version: 0.0.7+59
 
 environment:
   sdk: ^3.5.4

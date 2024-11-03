@@ -142,6 +142,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 8.0),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -251,13 +252,13 @@ class _InMobViewState extends ConsumerState<InMobView> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 24.0),
+                const SizedBox(height: 32.0),
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(50),
-                        topRight: Radius.circular(50),
+                        topLeft: Radius.circular(32.0),
+                        topRight: Radius.circular(32.0),
                       ),
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
