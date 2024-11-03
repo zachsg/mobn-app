@@ -94,7 +94,8 @@ class CalendarMonthWidget extends StatelessWidget {
                               date: DateTime.now(),
                               isToday: true,
                             );
-                          } else if (d.day > today.day) {
+                          } else if (d.day > today.day &&
+                              d.month == today.month) {
                             return CalendarItemFutureWidget(showLabel: false);
                           } else {
                             return _calendarDotForDate(

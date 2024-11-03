@@ -94,11 +94,19 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
   void _showNumMonth(MHabitType type) {
     final goal = widget.profile.goals.firstWhere((g) => g.habitType == type);
 
-    final difference = goal.startDate.difference(DateTime.now());
+    final todayYear = DateTime.now().year;
+    final startYear = startDate.year;
+    final extra = todayYear - startYear;
+
+    final todayMonth = DateTime.now().month;
+    final startMonth = goal.startDate.month;
+
+    final months = (todayMonth - startMonth + 1) + (extra * 12);
 
     setState(() {
       startDate = goal.startDate;
-      numOfMonthsToShow = (difference.inDays.abs() / 30).floor() + 1;
+
+      numOfMonthsToShow = months;
     });
   }
 
