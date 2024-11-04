@@ -66,7 +66,8 @@ class TakeActionView extends ConsumerWidget {
                   horizontal: 16.0,
                   vertical: 20.0,
                 ),
-                child: Text('Done ${mob.habitType.name.habitDoing()}'),
+                child: Text(
+                    'End ${mob.habitType.name.habitDoing().toLowerCase()} early'),
               ),
             ),
           ],

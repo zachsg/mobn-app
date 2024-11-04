@@ -5,6 +5,7 @@ import 'package:mobn/helpers/extensions.dart';
 
 import '../../helpers/constants.dart';
 import '../../models/xmodels.dart';
+import '../home/widgets/streak_widget.dart';
 import '../new_mob/new_mob_view.dart';
 import '../in_mob/in_mob_view.dart';
 
@@ -56,7 +57,6 @@ class MobsWidget extends ConsumerWidget {
                       color: _colorByCompletion(context: context, mob: mob),
                       size: 32,
                     ),
-
                     title: Text(
                       mob.habitType.name.habitDoing().capitalize(),
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -65,7 +65,6 @@ class MobsWidget extends ConsumerWidget {
                           ),
                     ),
                     subtitle: Wrap(children: _mobMates(context, mob)),
-                    // Text('3 additional mob mates'),
                     trailing: Icon(
                       Icons.chevron_right,
                       color: Theme.of(context).colorScheme.surface,

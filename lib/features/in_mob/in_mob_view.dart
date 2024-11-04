@@ -99,6 +99,8 @@ class _InMobViewState extends ConsumerState<InMobView> {
                           child: PieChart(
                             PieChartData(
                               sectionsSpace: 0,
+                              centerSpaceColor:
+                                  Theme.of(context).colorScheme.surface,
                               centerSpaceRadius: 72,
                               sections: showingSections(context),
                             ),
@@ -161,14 +163,14 @@ class _InMobViewState extends ConsumerState<InMobView> {
                         );
                       },
                       child: Padding(
-                        padding: const EdgeInsets.only(left: 24.0),
+                        padding: const EdgeInsets.only(left: 32.0),
                         child: Row(
                           children: [
                             Text(
                                 '${widget.mob.habitType.name.capitalize()} for  '),
                             Container(
                               height: 64.0,
-                              width: 82.0,
+                              width: 90.0,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(50.0),
@@ -440,7 +442,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
           (emptyTime / totalGoalTime * 100).round().toInt();
 
       final section = PieChartSectionData(
-        color: Theme.of(context).colorScheme.onSurface.withOpacity(0.2),
+        color: Theme.of(context).colorScheme.onSurface,
         value: emptyTime,
         title: '',
         radius: 80,

@@ -11,6 +11,14 @@ extension DateTimeExtension on DateTime {
     return now.day == day && now.month == month && now.year == year;
   }
 
+  bool isSameDayAs(DateTime date) {
+    final sameYear = year == date.year;
+    final sameMonth = month == date.month;
+    final sameDay = day == date.day;
+
+    return sameYear && sameMonth && sameDay;
+  }
+
   String friendlyTime() {
     final DateFormat formatter = DateFormat('h:mm a');
     return formatter.format(this);
