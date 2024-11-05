@@ -25,6 +25,8 @@ class InMobView extends ConsumerStatefulWidget {
 class _InMobViewState extends ConsumerState<InMobView> {
   late PageController _pageController;
   int currentPageIndex = 0;
+  List<_PieUserModel> pieUsers = [];
+  DateTime date = DateTime.now();
 
   @override
   void initState() {
@@ -144,7 +146,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 8.0),
+                const SizedBox(height: 16.0),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -254,7 +256,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 32.0),
+                const SizedBox(height: 40.0),
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
@@ -331,6 +333,20 @@ class _InMobViewState extends ConsumerState<InMobView> {
     for (final goal in widget.mob.goals) {
       final name = goal.mateName;
       final handle = goal.mateHandle;
+      final color = pieUsers.firstWhere((u) => u.id == goal.mateID).color;
+
+      double completion = 0.0;
+      final actions = ref
+          .read(inMobProvider)
+          .day
+          .actions
+          .where((a) => a.mateID == goal.mateID && a.date.isSameDayAs(date));
+      for (final action in actions) {
+        completion += action.minutes;
+      }
+
+      completion /= goal.minutes;
+
       final mate = Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(cornerRadiusDefault)),
@@ -343,32 +359,51 @@ class _InMobViewState extends ConsumerState<InMobView> {
             borderRadius:
                 BorderRadius.all(Radius.circular(cornerRadiusDefault)),
           ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircleAvatar(child: Text(name.substring(0, 1))),
-              const SizedBox(width: 4.0),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name.isEmpty ? 'Anon' : name,
-                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                  ),
-                  Text(
-                    handle.isEmpty ? '@...' : '@$handle',
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 12.0),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    CircularProgressIndicator(
+                      strokeWidth: 8.0,
+                      value: completion,
+                      color: color,
+                    ),
+                    Text(
+                      name.substring(0, 1),
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            color: color,
+                            fontWeight: FontWeight.w900,
+                          ),
+                    )
+                  ],
+                ),
+                const SizedBox(width: 10.0),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name.isEmpty ? 'Anon' : name,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                    Text(
+                      handle.isEmpty ? '@...' : '@$handle',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface,
+                          ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 12.0),
+              ],
+            ),
           ),
         ),
       );
@@ -381,7 +416,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
 
   List<PieChartSectionData> showingSections(BuildContext context) {
     List<PieChartSectionData> sections = [];
-    List<_PieUserModel> pieUsers = [];
+    pieUsers = [];
 
     int totalGoalTime = 0;
     for (final goal in widget.mob.goals) {
@@ -399,7 +434,11 @@ class _InMobViewState extends ConsumerState<InMobView> {
       }
 
       final pieUser = _PieUserModel(
-          name: goal.mateName, timeSpent: timeSpent, color: index.toColor());
+        id: goal.mateID,
+        name: goal.mateName,
+        timeSpent: timeSpent,
+        color: index.toColor(),
+      );
 
       pieUsers = [...pieUsers, pieUser];
       index += 1;
@@ -428,8 +467,18 @@ class _InMobViewState extends ConsumerState<InMobView> {
         radius: 80,
         badgeWidget: user.name.isEmpty
             ? null
-            : CircleAvatar(
-                child: Text(user.name.substring(0, 1)),
+            : Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50.0),
+                  border: Border.all(
+                    width: 4.0,
+                    color: Theme.of(context).colorScheme.surface,
+                  ),
+                ),
+                child: CircleAvatar(
+                  backgroundColor: user.color,
+                  child: Text(user.name.substring(0, 1)),
+                ),
               ),
         badgePositionPercentageOffset: 1.0,
       );
@@ -456,11 +505,13 @@ class _InMobViewState extends ConsumerState<InMobView> {
 }
 
 class _PieUserModel {
+  String id;
   String name;
   int timeSpent;
   Color color;
 
   _PieUserModel({
+    required this.id,
     required this.name,
     required this.timeSpent,
     required this.color,

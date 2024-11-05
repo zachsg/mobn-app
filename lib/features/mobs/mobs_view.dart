@@ -5,7 +5,6 @@ import 'package:mobn/helpers/extensions.dart';
 
 import '../../helpers/constants.dart';
 import '../../models/xmodels.dart';
-import '../home/widgets/streak_widget.dart';
 import '../new_mob/new_mob_view.dart';
 import '../in_mob/in_mob_view.dart';
 
