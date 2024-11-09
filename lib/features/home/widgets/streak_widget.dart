@@ -30,16 +30,28 @@ class StreakWidget extends ConsumerWidget {
         .toList()
       ..sort((a, b) => b.date.compareTo(a.date));
 
+    final List<DateTime> actionDates = [];
     for (final action in actionsForType) {
-      if (action == actionsForType.first) {
-        if (action.date.isSameDayAs(compareDate) ||
-            action.date.isSameDayAs(compareDate.subtract(Duration(days: 1)))) {
+      final a = action.date.copyWith(
+          hour: 0, minute: 0, second: 0, microsecond: 0, millisecond: 0);
+
+      if (!actionDates.contains(a)) {
+        actionDates.add(a);
+      }
+    }
+
+    for (final date in actionDates) {
+      if (date == actionDates.first) {
+        final today = date.isSameDayAs(compareDate);
+        final yesterday = date.isSameDayAs(compareDate.daysAgo(1));
+
+        if (today || yesterday) {
           streak += 1;
-          compareDate = action.date.subtract(Duration(days: 1));
+          compareDate = date.daysAgo(1);
         }
-      } else if (action.date.isSameDayAs(compareDate)) {
+      } else if (date.isSameDayAs(compareDate)) {
         streak += 1;
-        compareDate = action.date.subtract(Duration(days: 1));
+        compareDate = date.daysAgo(1);
       } else {
         break;
       }

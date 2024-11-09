@@ -268,7 +268,9 @@ class _InMobViewState extends ConsumerState<InMobView> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: mainPadding, vertical: 20.0),
+                        horizontal: mainPadding,
+                        vertical: 20.0,
+                      ),
                       child: SingleChildScrollView(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -356,54 +358,57 @@ class _InMobViewState extends ConsumerState<InMobView> {
           color: Theme.of(context).colorScheme.surface,
           elevation: 1,
           shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.all(Radius.circular(cornerRadiusDefault)),
+            borderRadius: BorderRadius.all(
+              Radius.circular(cornerRadiusDefault),
+            ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      strokeWidth: 8.0,
-                      value: completion,
-                      color: color,
-                    ),
-                    Text(
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Stack(
+                alignment: Alignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 22.0,
+                    backgroundColor: color.withOpacity(0.2),
+                    child: Text(
                       name.substring(0, 1),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: color,
                             fontWeight: FontWeight.w900,
                           ),
-                    )
-                  ],
-                ),
-                const SizedBox(width: 10.0),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name.isEmpty ? 'Anon' : name,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
                     ),
-                    Text(
-                      handle.isEmpty ? '@...' : '@$handle',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface,
-                          ),
-                    ),
-                  ],
-                ),
-                const SizedBox(width: 12.0),
-              ],
-            ),
+                  ),
+                  CircularProgressIndicator(
+                    strokeWidth: 8.0,
+                    strokeCap: StrokeCap.round,
+                    value: completion,
+                    color: color,
+                  ),
+                ],
+              ),
+              const SizedBox(width: 6.0),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name.isEmpty ? 'Anon' : name,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                  ),
+                  Text(
+                    handle.isEmpty ? '@...' : '@$handle',
+                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 12.0),
+            ],
           ),
         ),
       );

@@ -11,6 +11,10 @@ extension DateTimeExtension on DateTime {
     return now.day == day && now.month == month && now.year == year;
   }
 
+  DateTime daysAgo(int days) {
+    return subtract(Duration(days: days));
+  }
+
   bool isSameDayAs(DateTime date) {
     final sameYear = year == date.year;
     final sameMonth = month == date.month;
