@@ -66,6 +66,12 @@ class _InMobViewState extends ConsumerState<InMobView> {
       appBar: AppBar(
         title: Text('${widget.mob.habitType.name.habitDoing()} Mob'),
         actions: [
+          if (provider.loading)
+            SizedBox(
+              height: 20,
+              width: 20,
+              child: CircularProgressIndicator(),
+            ),
           IconButton(
             onPressed: () {
               showModalBottomSheet<void>(
@@ -85,225 +91,215 @@ class _InMobViewState extends ConsumerState<InMobView> {
           ),
         ],
       ),
-      body: provider.loading
-          ? Center(child: CircularProgressIndicator())
-          : Column(
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(mainPadding),
+            child: Stack(
+              alignment: AlignmentDirectional.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(mainPadding),
-                  child: Stack(
-                    alignment: AlignmentDirectional.center,
+                AspectRatio(
+                  aspectRatio: 1.15,
+                  child: AspectRatio(
+                    aspectRatio: 1.0,
+                    child: PieChart(
+                      PieChartData(
+                        sectionsSpace: 0,
+                        centerSpaceColor: Theme.of(context).colorScheme.surface,
+                        centerSpaceRadius: 72,
+                        sections: showingSections(context),
+                      ),
+                    ),
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    timeRemaining() <= 0
+                        ? Icon(
+                            successIcon,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 128,
+                          )
+                        : Row(
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.alphabetic,
+                            children: [
+                              Text(
+                                timeRemaining().toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headlineLarge
+                                    ?.copyWith(fontWeight: FontWeight.bold),
+                              ),
+                              Text(
+                                'm',
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                            ],
+                          ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                style: FilledButton.styleFrom(
+                    padding: EdgeInsets.all(0),
+                    backgroundColor:
+                        Theme.of(context).colorScheme.primaryContainer),
+                onPressed: () {
+                  context.pushNamed(
+                    TakeActionView.routeName,
+                    extra: {
+                      'mob': widget.mob,
+                      'profile': widget.profile,
+                    },
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 32.0),
+                  child: Row(
                     children: [
-                      AspectRatio(
-                        aspectRatio: 1.15,
-                        child: AspectRatio(
-                          aspectRatio: 1.0,
-                          child: PieChart(
-                            PieChartData(
-                              sectionsSpace: 0,
-                              centerSpaceColor:
-                                  Theme.of(context).colorScheme.surface,
-                              centerSpaceRadius: 72,
-                              sections: showingSections(context),
-                            ),
+                      Text('${widget.mob.habitType.name.capitalize()} for  '),
+                      Container(
+                        height: 64.0,
+                        width: 90.0,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(50.0),
+                              bottomRight: Radius.circular(50.0)),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 12.0),
+                          child: PageView.builder(
+                            controller: _pageController,
+                            scrollDirection: Axis.vertical,
+                            onPageChanged: (value) {
+                              setState(() {
+                                currentPageIndex = value;
+                              });
+
+                              ref
+                                  .read(inMobProvider.notifier)
+                                  .setMinutes(minutesFromIndex());
+                            },
+                            itemCount: 12,
+                            itemBuilder: (context, index) {
+                              return currentPageIndex == index
+                                  ? Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          minutesFromIndex(index: index)
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                color: Theme.of(context)
+                                                    .colorScheme
+                                                    .surface,
+                                              ),
+                                        ),
+                                        const SizedBox(width: 2.0),
+                                        Text(
+                                          'min',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelSmall
+                                              ?.copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .surface),
+                                        ),
+                                      ],
+                                    )
+                                  : Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          minutesFromIndex(index: index)
+                                              .toString(),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall
+                                              ?.copyWith(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .surface),
+                                        ),
+                                      ],
+                                    );
+                            },
                           ),
                         ),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          timeRemaining() <= 0
-                              ? Icon(
-                                  successIcon,
-                                  color: Theme.of(context).colorScheme.primary,
-                                  size: 128,
-                                )
-                              : Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.baseline,
-                                  textBaseline: TextBaseline.alphabetic,
-                                  children: [
-                                    Text(
-                                      timeRemaining().toString(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineLarge
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      'm',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .labelMedium,
-                                    ),
-                                  ],
-                                ),
-                        ],
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(height: 16.0),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ElevatedButton(
-                      style: FilledButton.styleFrom(
-                          padding: EdgeInsets.all(0),
-                          backgroundColor:
-                              Theme.of(context).colorScheme.primaryContainer),
-                      onPressed: () {
-                        context.pushNamed(
-                          TakeActionView.routeName,
-                          extra: {
-                            'mob': widget.mob,
-                            'profile': widget.profile,
-                          },
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 32.0),
-                        child: Row(
-                          children: [
-                            Text(
-                                '${widget.mob.habitType.name.capitalize()} for  '),
-                            Container(
-                              height: 64.0,
-                              width: 90.0,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(50.0),
-                                    bottomRight: Radius.circular(50.0)),
-                                color: Theme.of(context).colorScheme.primary,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 12.0),
-                                child: PageView.builder(
-                                  controller: _pageController,
-                                  scrollDirection: Axis.vertical,
-                                  onPageChanged: (value) {
-                                    setState(() {
-                                      currentPageIndex = value;
-                                    });
-
-                                    ref
-                                        .read(inMobProvider.notifier)
-                                        .setMinutes(minutesFromIndex());
-                                  },
-                                  itemCount: 12,
-                                  itemBuilder: (context, index) {
-                                    return currentPageIndex == index
-                                        ? Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                minutesFromIndex(index: index)
-                                                    .toString(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyLarge
-                                                    ?.copyWith(
-                                                      fontWeight:
-                                                          FontWeight.bold,
-                                                      color: Theme.of(context)
-                                                          .colorScheme
-                                                          .surface,
-                                                    ),
-                                              ),
-                                              const SizedBox(width: 2.0),
-                                              Text(
-                                                'min',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .labelSmall
-                                                    ?.copyWith(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .surface),
-                                              ),
-                                            ],
-                                          )
-                                        : Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: [
-                                              Text(
-                                                minutesFromIndex(index: index)
-                                                    .toString(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodySmall
-                                                    ?.copyWith(
-                                                        color: Theme.of(context)
-                                                            .colorScheme
-                                                            .surface),
-                                              ),
-                                            ],
-                                          );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 40.0),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(32.0),
+                  topRight: Radius.circular(32.0),
                 ),
-                const SizedBox(height: 40.0),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(32.0),
-                        topRight: Radius.circular(32.0),
+                color: Theme.of(context).colorScheme.onSurface,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: mainPadding,
+                  vertical: 20.0,
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            'Mobmates',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        Theme.of(context).colorScheme.surface),
+                          ),
+                        ],
                       ),
-                      color: Theme.of(context).colorScheme.onSurface,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: mainPadding,
-                        vertical: 20.0,
+                      const SizedBox(height: 8.0),
+                      Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        children: _mobMates(),
                       ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Text(
-                                  'Mobmates',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headlineSmall
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .surface),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 8.0),
-                            Wrap(
-                              spacing: 8.0,
-                              runSpacing: 8.0,
-                              children: _mobMates(),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
+          ),
+        ],
+      ),
     );
   }
 
