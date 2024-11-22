@@ -1,11 +1,11 @@
 PODS:
   - audioplayers_darwin (0.0.1):
     - Flutter
-  - cloud_firestore (5.4.5):
+  - cloud_firestore (5.5.0):
     - Firebase/Firestore (= 11.4.0)
     - firebase_core
     - Flutter
-  - cloud_functions (5.1.4):
+  - cloud_functions (5.1.5):
     - Firebase/Functions (= 11.4.0)
     - firebase_core
     - Flutter
@@ -28,18 +28,18 @@ PODS:
   - Firebase/Messaging (11.4.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (~> 11.4.0)
-  - firebase_auth (5.3.2):
+  - firebase_auth (5.3.3):
     - Firebase/Auth (= 11.4.0)
     - firebase_core
     - Flutter
-  - firebase_core (3.7.0):
+  - firebase_core (3.8.0):
     - Firebase/CoreOnly (= 11.4.0)
     - Flutter
   - firebase_dynamic_links (6.0.8):
     - Firebase/DynamicLinks (= 11.4.0)
     - firebase_core
     - Flutter
-  - firebase_messaging (15.1.4):
+  - firebase_messaging (15.1.5):
     - Firebase/Messaging (= 11.4.0)
     - firebase_core
     - Flutter
@@ -112,7 +112,7 @@ PODS:
   - Flutter (1.0.0)
   - flutter_local_notifications (0.0.1):
     - Flutter
-  - flutter_native_splash (0.0.1):
+  - flutter_native_splash (2.4.3):
     - Flutter
   - GoogleDataTransport (10.1.0):
     - nanopb (~> 3.30910.0)
@@ -255,14 +255,14 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
-  cloud_firestore: 6bae2db322e02f737234a0ce847ddaf18d5012b6
-  cloud_functions: 15f3ddefaef6b5ba8a455cc95401c42a831aa10c
+  cloud_firestore: 8794ea2885e367f0a2096338964ddfd49739b2c7
+  cloud_functions: d1dc9179c2db1729cb9bd0c9683909216a0f2230
   desktop_webview_auth: d645139460ef203d50bd0cdb33356785dd939cce
   Firebase: cf1b19f21410b029b6786a54e9764a0cacad3c99
-  firebase_auth: 5defc54c120ef8d00a359ba787f1f3f521db59ce
-  firebase_core: f8c5b220a8f9c436fdbd075ae321cef3d96ef181
+  firebase_auth: 42718683069d35d73af7a986b55b194589039e5e
+  firebase_core: 9efc3ecf689cdbc90f13f4dc58108c83ea46b266
   firebase_dynamic_links: f047948dd5f5b3a28446ae4f5ec5ab2fe07afe43
-  firebase_messaging: a7f18d98006bbd8fd0918f4db64b9a70df29aaa8
+  firebase_messaging: 6bf60adb4b33a848d135e16bc363fb4924f98fba
   FirebaseAppCheckInterop: 1b9643ae2f1ee214488caa2f8e32b7bc2f0f3735
   FirebaseAuth: c359af98bd703cbf4293eec107a40de08ede6ce6
   FirebaseAuthInterop: 9ac948965ac13ec9d8a080f39490ddb2bda30520
@@ -284,7 +284,7 @@ SPEC CHECKSUMS:
   FirebaseSharedSwift: 505dae2d05969dbf6d43749a642bb1bf230f0252
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   flutter_local_notifications: df98d66e515e1ca797af436137b4459b160ad8c9
-  flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
+  flutter_native_splash: e8a1e01082d97a8099d973f919f57904c925008a
   GoogleDataTransport: aae35b7ea0c09004c3797d53c8c41f66f219d6a7
   GoogleUtilities: 26a3abef001b6533cf678d3eb38fd3f614b7872d
   GTMSessionFetcher: 923b710231ad3d6f3f0495ac1ced35421e07d9a6

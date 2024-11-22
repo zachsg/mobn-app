@@ -30,7 +30,7 @@ const homeLabel = 'Home';
 const homeIcon = Icons.home;
 const doneLabel = 'Done';
 const partDoneLabel = 'Part';
-const notDoneLabel = 'Miss';
+const notDoneLabel = 'Skip';
 const futureLabel = 'Next';
 
 // New mob

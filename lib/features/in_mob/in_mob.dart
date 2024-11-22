@@ -21,6 +21,10 @@ class InMob extends _$InMob {
     state = state.copyWith(day: day, loading: false);
   }
 
+  void setDayRequested(DateTime date) {
+    state = state.copyWith(dayRequested: date, loading: true);
+  }
+
   void setMinutes(int minutes) {
     state = state.copyWith(minutes: minutes);
   }

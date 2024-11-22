@@ -39,13 +39,13 @@ class CalendarLegendItemWidget extends StatelessWidget {
             ),
             if (isToday)
               Container(
-                width: size * 1.8,
-                height: size * 1.8,
+                width: size * 1.9,
+                height: size * 1.9,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: color,
-                    width: 1,
+                    width: 2,
                   ),
                 ),
               )

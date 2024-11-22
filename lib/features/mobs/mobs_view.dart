@@ -18,6 +18,8 @@ class MobsWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -69,7 +71,9 @@ class MobsWidget extends ConsumerWidget {
                       color: Theme.of(context).colorScheme.surface,
                       size: 32,
                     ),
-                    tileColor: Theme.of(context).colorScheme.onSurface,
+                    tileColor: isDark
+                        ? Theme.of(context).colorScheme.onSurfaceVariant
+                        : Theme.of(context).colorScheme.onSurface,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
                           Radius.circular(cornerRadiusDefault)),

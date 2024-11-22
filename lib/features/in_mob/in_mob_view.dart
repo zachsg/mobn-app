@@ -26,7 +26,6 @@ class _InMobViewState extends ConsumerState<InMobView> {
   late PageController _pageController;
   int currentPageIndex = 0;
   List<_PieUserModel> pieUsers = [];
-  DateTime date = DateTime.now();
 
   @override
   void initState() {
@@ -60,6 +59,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final provider = ref.watch(inMobProvider);
 
     return Scaffold(
@@ -93,13 +93,68 @@ class _InMobViewState extends ConsumerState<InMobView> {
       ),
       body: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                visualDensity: VisualDensity.comfortable,
+                onPressed: () async {
+                  final currentDate = ref.read(inMobProvider).dayRequested;
+                  ref
+                      .read(inMobProvider.notifier)
+                      .setDayRequested(currentDate.subtract(Duration(days: 1)));
+                  final newDate = ref.read(inMobProvider).dayRequested;
+
+                  await ref
+                      .read(inMobProvider.notifier)
+                      .loadDay(mob: widget.mob, date: newDate);
+                },
+                icon: Icon(
+                  Icons.arrow_circle_left,
+                  size: 28.0,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+              const SizedBox(width: 12.0),
+              Text(
+                provider.day.date.shortform(),
+                style: Theme.of(context)
+                    .textTheme
+                    .titleMedium
+                    ?.copyWith(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(width: 12.0),
+              IconButton(
+                visualDensity: VisualDensity.comfortable,
+                onPressed: provider.dayRequested.isToday()
+                    ? null
+                    : () async {
+                        ref
+                            .read(inMobProvider.notifier)
+                            .setDayRequested(DateTime.now());
+                        final newDate = ref.read(inMobProvider).dayRequested;
+
+                        await ref
+                            .read(inMobProvider.notifier)
+                            .loadDay(mob: widget.mob, date: newDate);
+                      },
+                icon: Icon(
+                  Icons.sunny,
+                  size: 28.0,
+                  color: provider.dayRequested.isToday()
+                      ? Theme.of(context).colorScheme.onSurface.withOpacity(0.3)
+                      : Theme.of(context).colorScheme.primary,
+                ),
+              ),
+            ],
+          ),
           Padding(
             padding: const EdgeInsets.all(mainPadding),
             child: Stack(
               alignment: AlignmentDirectional.center,
               children: [
                 AspectRatio(
-                  aspectRatio: 1.15,
+                  aspectRatio: 1.2,
                   child: AspectRatio(
                     aspectRatio: 1.0,
                     child: PieChart(
@@ -253,7 +308,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
               ),
             ],
           ),
-          const SizedBox(height: 40.0),
+          const SizedBox(height: 28.0),
           Expanded(
             child: Container(
               decoration: BoxDecoration(
@@ -261,12 +316,15 @@ class _InMobViewState extends ConsumerState<InMobView> {
                   topLeft: Radius.circular(32.0),
                   topRight: Radius.circular(32.0),
                 ),
-                color: Theme.of(context).colorScheme.onSurface,
+                color: isDark
+                    ? Theme.of(context).colorScheme.onSecondary
+                    : Theme.of(context).colorScheme.onSurface,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: mainPadding,
-                  vertical: 20.0,
+                padding: const EdgeInsets.only(
+                  left: mainPadding / 1.5,
+                  right: mainPadding / 1.5,
+                  top: mainPadding / 2.5,
                 ),
                 child: SingleChildScrollView(
                   child: Column(
@@ -280,9 +338,11 @@ class _InMobViewState extends ConsumerState<InMobView> {
                                 .textTheme
                                 .headlineSmall
                                 ?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color:
-                                        Theme.of(context).colorScheme.surface),
+                                  fontWeight: FontWeight.bold,
+                                  color: isDark
+                                      ? Theme.of(context).colorScheme.onSurface
+                                      : Theme.of(context).colorScheme.surface,
+                                ),
                           ),
                         ],
                       ),
@@ -290,7 +350,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
                       Wrap(
                         spacing: 8.0,
                         runSpacing: 8.0,
-                        children: _mobMates(),
+                        children: _mobMates(provider.dayRequested),
                       ),
                     ],
                   ),
@@ -325,7 +385,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
     return 5 * index + 5;
   }
 
-  List<Widget> _mobMates() {
+  List<Widget> _mobMates(date) {
     List<Widget> mates = [];
 
     for (final goal in widget.mob.goals) {
@@ -416,6 +476,7 @@ class _InMobViewState extends ConsumerState<InMobView> {
   }
 
   List<PieChartSectionData> showingSections(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     List<PieChartSectionData> sections = [];
     pieUsers = [];
 
@@ -492,7 +553,9 @@ class _InMobViewState extends ConsumerState<InMobView> {
           (emptyTime / totalGoalTime * 100).round().toInt();
 
       final section = PieChartSectionData(
-        color: Theme.of(context).colorScheme.onSurface,
+        color: isDark
+            ? Theme.of(context).colorScheme.onSurface.withOpacity(0.25)
+            : Theme.of(context).colorScheme.onSurface,
         value: emptyTime,
         title: '',
         radius: 80,

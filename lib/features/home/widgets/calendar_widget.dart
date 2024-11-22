@@ -121,7 +121,10 @@ class _CalendarWidgetState extends ConsumerState<CalendarWidget> {
     for (final mob in widget.mobs) {
       final child = ButtonSegment<MHabitType>(
         value: mob.habitType,
-        icon: Icon(mob.habitType.toIcon()),
+        icon: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Icon(mob.habitType.toIcon()),
+        ),
         tooltip: mob.habitType.name.capitalize(),
       );
 

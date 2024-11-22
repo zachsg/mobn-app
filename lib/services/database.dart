@@ -139,7 +139,6 @@ class Database {
     required MMobModel mob,
     required DateTime date,
   }) async {
-    final today = DateTime.now();
     final user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       final m = await db
@@ -154,10 +153,9 @@ class Database {
           .collection(daysCollection)
           .where('date',
               isGreaterThan:
-                  today.copyWith(hour: 0, minute: 0).toIso8601String())
+                  date.copyWith(hour: 0, minute: 0).toIso8601String())
           .where('date',
-              isLessThan:
-                  today.copyWith(hour: 23, minute: 59).toIso8601String())
+              isLessThan: date.copyWith(hour: 23, minute: 59).toIso8601String())
           .get();
 
       if (day.docs.isNotEmpty) {
@@ -165,7 +163,7 @@ class Database {
       }
     }
 
-    return MDayModel(date: today);
+    return MDayModel(date: date);
   }
 
   static Future<bool> saveAction({

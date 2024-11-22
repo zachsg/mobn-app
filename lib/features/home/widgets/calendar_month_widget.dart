@@ -22,6 +22,7 @@ class CalendarMonthWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final windowSize = MediaQuery.of(context).size;
 
     final firstDayOfMonth = DateTime(
@@ -52,7 +53,9 @@ class CalendarMonthWidget extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(cornerRadiusDefault),
             ),
-            color: Theme.of(context).colorScheme.onSurface,
+            color: isDark
+                ? Theme.of(context).colorScheme.onSurfaceVariant
+                : Theme.of(context).colorScheme.onSurface,
             margin: EdgeInsets.all(0),
             child: Padding(
               padding: const EdgeInsets.all(20.0),
@@ -62,7 +65,9 @@ class CalendarMonthWidget extends StatelessWidget {
                   Text(
                     date.monthNameLong(),
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.surface),
+                          color: Theme.of(context).colorScheme.surface,
+                          fontWeight: FontWeight.bold,
+                        ),
                   ),
                   const SizedBox(height: 4.0),
                   SizedBox(
@@ -90,15 +95,21 @@ class CalendarMonthWidget extends StatelessWidget {
 
                           if (d.isToday()) {
                             return _calendarDotForDate(
+                              context: context,
                               startDate: startDate,
                               date: DateTime.now(),
                               isToday: true,
                             );
                           } else if (d.day > today.day &&
                               d.month == today.month) {
-                            return CalendarItemFutureWidget(showLabel: false);
+                            return GestureDetector(
+                              onTap: () =>
+                                  context.showSnackBar(message: d.longform()),
+                              child: CalendarItemFutureWidget(showLabel: false),
+                            );
                           } else {
                             return _calendarDotForDate(
+                              context: context,
                               startDate: startDate,
                               date: d,
                             );
@@ -130,9 +141,10 @@ class CalendarMonthWidget extends StatelessWidget {
                                   .textTheme
                                   .labelLarge
                                   ?.copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .surface),
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             );
                           } else {
                             return SizedBox();
@@ -151,6 +163,7 @@ class CalendarMonthWidget extends StatelessWidget {
   }
 
   Widget _calendarDotForDate({
+    required BuildContext context,
     required DateTime startDate,
     required DateTime date,
     bool isToday = false,
@@ -160,24 +173,36 @@ class CalendarMonthWidget extends StatelessWidget {
     final goalMinutes = _goalMinutes();
 
     if (timeSpent >= goalMinutes) {
-      return CalendarItemDoneWidget(
-        showLabel: false,
-        isToday: isToday,
+      return GestureDetector(
+        onTap: () => context.showSnackBar(message: date.longform()),
+        child: CalendarItemDoneWidget(
+          showLabel: false,
+          isToday: isToday,
+        ),
       );
     } else if (timeSpent > 0) {
-      return CalendarItemPartDoneWidget(
-        showLabel: false,
-        isToday: isToday,
+      return GestureDetector(
+        onTap: () => context.showSnackBar(message: date.longform()),
+        child: CalendarItemPartDoneWidget(
+          showLabel: false,
+          isToday: isToday,
+        ),
       );
     } else {
       final isBeforeStart = date.isBefore(startDate.add(Duration(days: -1)));
 
       if (timeSpent == 0 && !isToday && !isBeforeStart) {
-        return CalendarItemNotDoneWidget(showLabel: false, isToday: isToday);
+        return GestureDetector(
+          onTap: () => context.showSnackBar(message: date.longform()),
+          child: CalendarItemNotDoneWidget(showLabel: false, isToday: isToday),
+        );
       } else {
-        return CalendarItemFutureWidget(
-          showLabel: false,
-          isToday: isToday,
+        return GestureDetector(
+          onTap: () => context.showSnackBar(message: date.longform()),
+          child: CalendarItemFutureWidget(
+            showLabel: false,
+            isToday: isToday,
+          ),
         );
       }
     }
