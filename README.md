@@ -1,6 +1,24 @@
 # mobn
 
-A new Flutter project.
+## Screeshots
+<div>
+  <p>
+    <img src="https://github.com/user-attachments/assets/22587f09-87f5-4923-bedf-51387894aa1b" width="200">
+    &nbsp;
+    <img src="https://github.com/user-attachments/assets/2de6ea8f-2ab7-4392-9658-5eb011884183" width="200">
+    &nbsp;
+    <img src="https://github.com/user-attachments/assets/a6dff783-67bb-4f25-bdf1-90b27bfc3417" width="200">
+    &nbsp;
+    <img src="https://github.com/user-attachments/assets/064f4672-cfb8-41d4-a9a1-604ebc9ccdb3" width="200">
+    &nbsp;
+    <img src="https://github.com/user-attachments/assets/a92a3230-03cc-4c8d-9ed2-764aeea2f224" width="200">
+    &nbsp;
+    <img src="https://github.com/user-attachments/assets/2a5d11f3-1b76-4540-a050-427256ad26ee" width="200">
+    &nbsp;
+    <img src="https://github.com/user-attachments/assets/b24bb150-cf88-4662-86b7-19cb3889b77d" width="200">
+    &nbsp;
+  </p>
+</div>
 
 ## Building
 
